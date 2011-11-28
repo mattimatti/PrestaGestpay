@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>gestpay</name>
+    <displayName>GestPay Banca Sella</displayName>
+    <version>0.4.4</version>
+    <description>Accept payments by Banca Sella gateway</description>
+    <tab>payments_gateways</tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+</module>

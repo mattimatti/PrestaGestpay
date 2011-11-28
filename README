@@ -1,0 +1,17 @@
+GestPay Module for Prestashop
+
+Per far funzionare il modulo bisogna impostare gli url di risposta positiva e negativa sul backend di Banca Sella.
+
+Link al backend di test: https://testecomm.sella.it/gestpay/backoffice/menu.asp?nowizard=true
+
+Link al backend reale: https://ecomm.sella.it/gestpay/backoffice/menu.asp?nowizard=true
+
+Impostare questi url:
+
+URL per risposta positiva: http://www.dominio.it/modules/gestpay/validation.php
+URL per risposta negativa: http://www.dominio.it/modules/gestpay/validation.php
+Nella sezione campi e parametri bisogna abilitare a Parametro SI le voci:
+Buyer Email
+Buyer Name
+Language
+Non dimenticate di abilitare l'IP del vostro server nel backend di GestPay!
