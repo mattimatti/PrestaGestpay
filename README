@@ -14,4 +14,7 @@ Nella sezione campi e parametri bisogna abilitare a Parametro SI le voci:
 Buyer Email
 Buyer Name
 Language
+
+Attenzione: la cartella del plugin deve chiamarsi gestpay per non causare errori di installazione
+
 Non dimenticate di abilitare l'IP del vostro server nel backend di GestPay!
