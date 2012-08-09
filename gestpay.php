@@ -20,7 +20,7 @@
  *
  * @author Andrea De Pirro <andrea.depirro@yameveo.com>, Enrico Aillaud <enrico.aillaud@yameveo.com>
  * @copyright Andrea De Pirro & Enrico Aillaud
- * @version 0.4.4
+ * @version 0.4.5
  *
  */
 // TODO implement GestPayCryptHS when SSL is available
@@ -29,8 +29,8 @@ include_once(_PS_MODULE_DIR_ . "gestpay/lib/GestPayCrypt/GestPayCrypt.inc.php");
 
 // TODO make the utilities class work
 //include_once(_PS_MODULE_DIR_."gestpay/lib/utilities.php");
-class GestPay extends PaymentModule {
-
+class gestpay extends PaymentModule
+{
   private $_html = '';
   private $_postErrors = array();
   public $details;
@@ -41,7 +41,8 @@ class GestPay extends PaymentModule {
    * Constructor for the class GestPay
    *
    */
-  public function __construct() {
+  public function __construct()
+  {
     $this->blowfish = new Blowfish(_COOKIE_KEY_, _COOKIE_IV_);
     $this->name = 'gestpay';
     $this->tab = 'payments_gateways';
@@ -97,12 +98,14 @@ class GestPay extends PaymentModule {
    * @return boolean true if the module has been installed correctly
    *
    */
-  public function install() {
+  public function install()
+  {
     if (!parent::install()
             OR !$this->installDB()
             OR !$this->registerHook('payment')
             OR !$this->registerHook('paymentReturn')
     )
+
       return false;
     return true;
   }
@@ -113,7 +116,8 @@ class GestPay extends PaymentModule {
    * @return boolean true if queries went fine
    *
    */
-  private function installDB() {
+  private function installDB()
+  {
     // Insert Admin Tab
     $admin_payment_tab_id = Tab::getIdFromClassName('AdminPayment');
     // Map GestPay currencies IDs with Prestashop IDs
@@ -157,12 +161,14 @@ class GestPay extends PaymentModule {
             ('fr', 4),
             ('de', 5)
           "))
+
       return true; //endif
 
     return false;
   }
 
-  private function installModuleTab($tabClass, $tabName, $idTabParent) {
+  private function installModuleTab($tabClass, $tabName, $idTabParent)
+  {
     @copy(_PS_MODULE_DIR_ . $this->name . '/images/logo.png', _PS_IMG_DIR_ . 't/' . $tabClass . '.png');
     $tab = new Tab();
     $tab->name = $tabName;
@@ -177,11 +183,12 @@ class GestPay extends PaymentModule {
   /**
    * Removes any configuration set by the module during install, along with
    * related DB tables
-   * 
+   *
    * @return boolean true if unistall went fine
    *
    */
-  public function uninstall() {
+  public function uninstall()
+  {
     if (!parent::uninstall()
             OR !$this->uninstallModuleTab()
             OR !$this->uninstallDB()
@@ -194,6 +201,7 @@ class GestPay extends PaymentModule {
             OR !Configuration::deleteByName('GESTPAY_TESTMODE')
             OR !Configuration::deleteByName('GESTPAY_ACCOUNT_TYPE')
     )
+
       return false;
     return true;
   }
@@ -204,14 +212,17 @@ class GestPay extends PaymentModule {
    * @return boolean true if everything went fine
    *
    */
-  private function uninstallModuleTab() {
+  private function uninstallModuleTab()
+  {
     $idTab = Tab::getIdFromClassName('AdminGestPay');
     if ($idTab != 0) {
       $tab = new Tab($idTab);
       $tab->delete();
       @unlink(_PS_IMG_DIR_ . 't/' . $tabClass . '.png');
+
       return true;
     }
+
     return false;
   }
 
@@ -222,13 +233,15 @@ class GestPay extends PaymentModule {
    * @return boolean true if everything went fine
    *
    */
-  private function uninstallDB() {
+  private function uninstallDB()
+  {
     if (Db::getInstance()->Execute('DROP TABLE `' . _DB_PREFIX_ . 'gestpay_currencies_map`;')
             AND Db::getInstance()->Execute('DROP TABLE `' . _DB_PREFIX_ . 'gestpay_languages_map`;')
             AND Db::getInstance()->Execute("DELETE FROM `" . _DB_PREFIX_ . "tab` WHERE `class_name`='AdminGestPay';")
             AND Db::getInstance()->Execute("DELETE FROM `" . _DB_PREFIX_ . "tab_lang` WHERE `name`='GestPay';")) {
       return true;
     }
+
     return false;
   }
 
@@ -237,7 +250,8 @@ class GestPay extends PaymentModule {
    * login information
    *
    */
-  private function _postValidation() {
+  private function _postValidation()
+  {
     if (isset($_POST['btnSubmit'])) {
 
       $login_user = $_POST['login_user'];
@@ -296,7 +310,8 @@ class GestPay extends PaymentModule {
    * Support function to update GestPay configuration fields
    *
    */
-  private function _postProcess() {
+  private function _postProcess()
+  {
     $this->blowfish = new Blowfish(_COOKIE_KEY_, _COOKIE_IV_);
     if (isset($_POST['btnSubmit'])) {
       Configuration::updateValue('GESTPAY_LOGIN_USER', $_POST['login_user']);
@@ -311,7 +326,8 @@ class GestPay extends PaymentModule {
     $this->_html .= '<div class="conf confirm"><img src="../img/admin/ok.gif" alt="' . $this->l('ok') . '" /> ' . $this->l('Settings updated') . '</div>';
   }
 
-  private function _displayGestPay() {
+  private function _displayGestPay()
+  {
     // TODO better style, remove <br />
     $module_image_path = '../modules/gestpay/images';
     $this->_html .=
@@ -321,7 +337,7 @@ class GestPay extends PaymentModule {
       <img src="' . $module_image_path . '/amex.png" style="margin-right:10px" />
       <img src="' . $module_image_path . '/jcb.png" style="margin-right:10px" />
       <img src="' . $module_image_path . '/aura.png" style="margin-right:10px" />
-      <img src="' . $module_image_path . '/gestpay.png" style="margin-right:10px" />
+      <img src="' . $module_image_path . '/gestpay.gif" style="margin-right:10px" />
       <br /><br />
       <b>' . $this->l('If you like this module please consider a donation') . '</b><br />
       <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
@@ -367,22 +383,24 @@ class GestPay extends PaymentModule {
             '<br /><br /><br />';
   }
 
-  private function _displayForm() {
+  private function _displayForm()
+  {
     // TODO better style for fieldset. Use class gestpay_input for styling.
     // TODO Should we use Smarty for templating?
+    $this->_html .= '<style type="text/css"></style>';
     $this->_html .=
-            '<form action="' . $_SERVER['REQUEST_URI'] . '" method="post">
-        <fieldset>
-          <legend><img src="../img/admin/contact.gif" />' . $this->l('Account details') . '</legend>'
-            . $this->l('Please specify your GestPay account details') .
-            '<br />'
-            . $this->l('Login User:') .
+            '<form action="' . $_SERVER['REQUEST_URI'] . '" method="POST">
+        <fieldset id="gestpay_config">
+          <legend><img src="../img/admin/contact.gif" />' . $this->l('Account details') . '</legend>'.
+            '<h3>'. $this->l('Please specify your GestPay account details') .'</h3>'.
+            '<label for="login_user">'.$this->l('Login User:') .'</label>'.
             '<input
+              id="login_user"
               class="gestpay_input_top"
               type="text"
               name="login_user"
               value="' . htmlentities(Tools::getValue('login_user', $this->login_user), ENT_COMPAT, 'UTF-8') . '"
-              style="width: 300px; margin-top: 15px; margin-left: 15px" />
+              style="width: 300px; margin-bottom: 15px; margin-left: 15px" />
           <br />'
             . $this->l('Password:') .
             '<input
@@ -390,7 +408,7 @@ class GestPay extends PaymentModule {
               type="password"
               name="password"
               value="' . htmlentities(Tools::getValue('password', $this->password), ENT_COMPAT, 'UTF-8') . '"
-              style="width: 300px; margin-top: 10px; margin-left: 15px" />
+              style="width: 300px; margin-bottom: 15px; margin-left: 15px" />
            <br />'
             . $this->l('Merchant Code:') .
             '<input
@@ -398,7 +416,7 @@ class GestPay extends PaymentModule {
               type="text"
               name="merchant_code"
               value="' . htmlentities(Tools::getValue('merchant_code', $this->merchant_code), ENT_COMPAT, 'UTF-8') . '"
-              style="width: 300px; margin-top: 10px; margin-left: 15px" />
+              style="width: 300px; margin-bottom: 15px; margin-left: 15px" />
           <br />'
             . $this->l('Login User for Test Mode:') .
             '<input
@@ -406,14 +424,14 @@ class GestPay extends PaymentModule {
               type="text"
               name="login_user_test"
               value="' . htmlentities(Tools::getValue('login_user_test', $this->login_user_test), ENT_COMPAT, 'UTF-8') . '"
-              style="width: 300px; margin-top: 10px; margin-left: 15px" />
+              style="width: 300px; margin-bottom: 15px; margin-left: 15px" />
           <br />'
             . $this->l('Password for Test Mode:') .
             '<input
               type="password"
               name="password_test"
               value="' . htmlentities(Tools::getValue('password_test', $this->password_test), ENT_COMPAT, 'UTF-8') . '"
-              style="width: 300px; margin-top: 10px; margin-left: 15px" />
+              style="width: 300px; margin-bottom: 15px; margin-left: 15px" />
            <br />'
             . $this->l('Merchant Code for Test Mode:') .
             '<input
@@ -431,31 +449,29 @@ class GestPay extends PaymentModule {
               style="width: 300px; margin-top: 10px; margin-left: 15px" ' .
             ($this->test_mode ? 'checked' : '') . '/>
           <br /><br />'
-            . $this->l('Choose your account type:') .
-            '<br />
-          <input
+            . '<p>' . $this->l('Choose your account type:'). '</p><br />'.
+          '<label for="basic" style="width: 100px; margin-top:-3px">BASIC</label><input
+              id="basic"
               type="radio"
               name="account_type"
               value="0"' .
             ($this->account_type == 0 ? 'checked' : '') . '
-              style="width: 20px; margin-top: 10px; margin-left: 15px" />
-              BASIC
-           <br />
-           <input
+              style="width: 20px; margin-bottom: 15px" /><br />
+           <label for="advanced" style="width: 100px; margin-top:-3px">ADVANCED</label><input
+              id="advanced"
               type="radio"
               name="account_type"
               value="1"' .
             ($this->account_type == 1 ? 'checked' : '') . '
-              style="width: 20px; margin-top: 10px; margin-left: 15px" />
-              ADVANCED
-           <br />
-           <input
+              style="width: 20px; margin-bottom: 15px" /><br />
+           <label for="professional" style="width: 100px; margin-top:-3px">PROFESSIONAL</label><input
+              id="professional"
               type="radio"
               name="account_type"
               value="2"' .
             ($this->account_type == 2 ? 'checked' : '') . '
-              style="width: 20px; margin-top: 10px; margin-left: 15px" />
-              PROFESSIONAL
+              style="width: 20px;  margin-bottom: 15px" />
+
           <br />' .
             '<input
               class="button"
@@ -467,7 +483,8 @@ class GestPay extends PaymentModule {
       </form>';
   }
 
-  public function getContent() {
+  public function getContent()
+  {
     $this->_html = '<h2>' . $this->displayName . '</h2>';
     if (!empty($_POST)) {
       $this->_postValidation();
@@ -476,8 +493,7 @@ class GestPay extends PaymentModule {
       else
         foreach ($this->_postErrors AS $err)
           $this->_html .= '<div class="alert error">' . $err . '</div>';
-    }
-    else
+    } else
       $this->_html .= '<br />';
 
     $this->_displayGestPay();
@@ -489,13 +505,14 @@ class GestPay extends PaymentModule {
   /**
    * Crypt function based on GestPayCrypt library, needed to create 'a' and
    * 'b' parameters to create the request to GestPay gateway
-   * 
+   *
    * @global $cookie
    * @param Cart $cart contains transition data
    * @return array containing 'a' and 'b' parameters
    *
    */
-  private function Crypt($cart) {
+  private function Crypt($cart)
+  {
     global $cookie;
 
     switch (Configuration::get('GESTPAY_ACCOUNT_TYPE')) {
@@ -544,7 +561,6 @@ class GestPay extends PaymentModule {
 
     $customer_firstname = ucfirst(strtolower($del_add_fields['firstname'])) . " " . ucfirst(strtolower($del_add_fields['lastname']));
     $customer_email = $customer->email;
-
 
     // TODO use the laguages map DB table to map PrestaShop languages with GestPay languages
     switch (Language::getIsoById(intval($cookie->id_lang))) {
@@ -605,7 +621,8 @@ class GestPay extends PaymentModule {
    * @return GestPayCrypt contains decrypted transaction data
    *
    */
-  private function deCrypt($a, $b) {
+  private function deCrypt($a, $b)
+  {
     global $cookie;
 
     $gestpay_decrypt = new GestPayCrypt();
@@ -613,6 +630,7 @@ class GestPay extends PaymentModule {
     $gestpay_decrypt->SetEncryptedString($b);
     $gestpay_decrypt->SetDomainName($this->getGestPayDomainName());
     $gestpay_decrypt->Decrypt(); // Decrypt parameters
+
     return $gestpay_decrypt;
   }
 
@@ -623,7 +641,8 @@ class GestPay extends PaymentModule {
    * @todo use the prestashop native Currency object
    * @return string containg the html entity for the currency
    */
-  private function convertToCurrencySymbol($currency_code) {
+  private function convertToCurrencySymbol($currency_code)
+  {
     switch ($currency_code) {
       case 242 :
         $symbol = "&euro;"; // Euro
@@ -638,6 +657,7 @@ class GestPay extends PaymentModule {
         $symbol = "&euro;"; // Default currency is Euro
         break;
     }
+
     return $symbol;
   }
 
@@ -652,7 +672,8 @@ class GestPay extends PaymentModule {
    * @return string page to be displayed after validation
    *
    */
-  public function validatePayment($a, $b) {
+  public function validatePayment($a, $b)
+  {
     global $smarty, $cookie;
 
     $gestpay_decrypt = $this->deCrypt($a, $b);
@@ -683,6 +704,7 @@ class GestPay extends PaymentModule {
         'error_code' => $error_code,
         'error_description' => $error_description,
     ));
+
     return $this->display(__FILE__, 'payment_return.tpl');
   }
 
@@ -695,7 +717,8 @@ class GestPay extends PaymentModule {
    * @return string page to be displayed before execution
    *
    */
-  public function execPayment($cart) {
+  public function execPayment($cart)
+  {
     global $smarty, $cookie;
     $array_crypt = $this->Crypt($cart);
     $amount = number_format($cart->getOrderTotal(true, 3), 2, '.', ''); // Ex. 1256.28
@@ -710,10 +733,12 @@ class GestPay extends PaymentModule {
         'isoCode' => Language::getIsoById((int) ($cookie->id_lang)),
         'this_path' => $this->_path
     ));
+
     return $this->display(__FILE__, 'payment_execution.tpl');
   }
 
-  public function hookPayment($params) {
+  public function hookPayment($params)
+  {
     if (!$this->active)
       return;
 
@@ -724,6 +749,7 @@ class GestPay extends PaymentModule {
         htmlspecialchars($_SERVER['HTTP_HOST'], ENT_COMPAT, 'UTF-8') .
         __PS_BASE_URI__ . 'modules/' . $this->name . '/'
     ));
+
     return $this->display(__FILE__, 'payment.tpl');
   }
 
@@ -734,11 +760,13 @@ class GestPay extends PaymentModule {
    * @return string Domain Name to GestPay payment gateway
    *
    */
-  public function getGestPayDomainName() {
+  public function getGestPayDomainName()
+  {
     if (Configuration::get('GESTPAY_TESTMODE'))
       $domain_name = 'testecomm.sella.it';
     else
       $domain_name = 'ecomms2s.sella.it';
+
     return $domain_name;
   }
 
@@ -749,14 +777,14 @@ class GestPay extends PaymentModule {
    * @return string Url to GestPay payment gateway
    *
    */
-  public function getGestPayUrl() {
+  public function getGestPayUrl()
+  {
     if (Configuration::get('GESTPAY_TESTMODE'))
       $url = 'https://testecomm.sella.it/gestpay/pagam.asp';
     else
       $url = 'https://ecomm.sella.it/gestpay/pagam.asp';
+
     return $url;
   }
 
 }
-
-?>

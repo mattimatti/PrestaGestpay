@@ -35,4 +35,3 @@ $gestpay = new GestPay();
 echo $gestpay->validatePayment(trim($_GET['a']), trim($_GET['b']));
 
 include_once(dirname(__FILE__) . '/../../footer.php');
-?>

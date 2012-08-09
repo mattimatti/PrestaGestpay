@@ -2,7 +2,7 @@
 <module>
     <name>gestpay</name>
     <displayName>GestPay Banca Sella</displayName>
-    <version>0.4.4</version>
+    <version>0.4.5</version>
     <description>Accept payments by Banca Sella gateway</description>
     <tab>payments_gateways</tab>
     <is_configurable>1</is_configurable>

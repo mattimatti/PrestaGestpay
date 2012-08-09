@@ -29,43 +29,44 @@
 // Path curl
 define("GESTPAYCRYPT_CURL_BIN", "/usr/bin/curl");
 
-class GestPayCrypt {
-
+class GestPayCrypt
+{
   // Public
-  var $ShopLogin;          // Merchant Code
-  var $Currency;           // Code to identify currency
-  var $Amount;             // Total amountImporto della transazione
-  var $ShopTransactionID;  // Merchant transaction ID
-  var $CardNumber;         // Credit Card number
-  var $ExpMonth;           // Mese di scadenza carta di credito
-  var $ExpYear;            // Anno di scadenza carta di credito
-  var $BuyerName;          // Nome e cognome dell'acquirente
-  var $BuyerEmail;         // Indirizzo email dell'acquirente
-  var $Language;           // Lingua selezionata
-  var $CustomInfo;         // Info aggiuntive
-  var $AuthorizationCode;  // Codice di autorizzazione della transazione;
-  var $ErrorCode;          // Codice di errore
-  var $ErrorDescription;   // Descrizione errore
-  var $BankTransactionID;  // Identificativo attribuito alla transazione da GestPay
-  var $AlertCode;          // Codice alert
-  var $AlertDescription;   // Descrizione alert
-  var $EncryptedString;    // Stringa cifrata
-  var $ToBeEncript;        // Stringa da cifrare
-  var $Decrypted;
-  var $TransactionResult;  // Esito transazione
-  var $ProtocolAuthServer;
-  var $DomainName;
-  var $separator;
-  var $errDescription;
-  var $errNumber;
-  var $Version;
-  var $Min;
-  var $CVV;
-  var $country;
-  var $vbvrisp;
-  var $vbv;
+  public $ShopLogin;          // Merchant Code
+  public $Currency;           // Code to identify currency
+  public $Amount;             // Total amountImporto della transazione
+  public $ShopTransactionID;  // Merchant transaction ID
+  public $CardNumber;         // Credit Card number
+  public $ExpMonth;           // Mese di scadenza carta di credito
+  public $ExpYear;            // Anno di scadenza carta di credito
+  public $BuyerName;          // Nome e cognome dell'acquirente
+  public $BuyerEmail;         // Indirizzo email dell'acquirente
+  public $Language;           // Lingua selezionata
+  public $CustomInfo;         // Info aggiuntive
+  public $AuthorizationCode;  // Codice di autorizzazione della transazione;
+  public $ErrorCode;          // Codice di errore
+  public $ErrorDescription;   // Descrizione errore
+  public $BankTransactionID;  // Identificativo attribuito alla transazione da GestPay
+  public $AlertCode;          // Codice alert
+  public $AlertDescription;   // Descrizione alert
+  public $EncryptedString;    // Stringa cifrata
+  public $ToBeEncript;        // Stringa da cifrare
+  public $Decrypted;
+  public $TransactionResult;  // Esito transazione
+  public $ProtocolAuthServer;
+  public $DomainName;
+  public $separator;
+  public $errDescription;
+  public $errNumber;
+  public $Version;
+  public $Min;
+  public $CVV;
+  public $country;
+  public $vbvrisp;
+  public $vbv;
 
-  function GestPayCrypt() {
+  public function GestPayCrypt()
+  {
     $this->ShopLogin = "";
     $this->Currency = "";
     $this->Amount = "";
@@ -105,140 +106,174 @@ class GestPayCrypt {
 
   // Public
   // Metodi di valorizzazione attributi
-  function SetShopLogin($val) {
+  public function SetShopLogin($val)
+  {
     $this->ShopLogin = $val;
   }
 
-  function SetCurrency($val) {
+  public function SetCurrency($val)
+  {
     $this->Currency = $val;
   }
 
-  function SetAmount($val) {
+  public function SetAmount($val)
+  {
     $this->Amount = $val;
   }
 
-  function SetShopTransactionID($val) {
+  public function SetShopTransactionID($val)
+  {
     $this->ShopTransactionID = urlencode(trim($val));
   }
 
-  function SetCardNumber($val) {
+  public function SetCardNumber($val)
+  {
     $this->CardNumber = $val;
   }
 
-  function SetDomainName($val) {
+  public function SetDomainName($val)
+  {
     $this->DomainName = $val;
   }
 
-  function SetExpMonth($val) {
+  public function SetExpMonth($val)
+  {
     $this->ExpMonth = $val;
   }
 
-  function SetExpYear($val) {
+  public function SetExpYear($val)
+  {
     $this->ExpYear = $val;
   }
 
-  function SetMIN($val) {
+  public function SetMIN($val)
+  {
     $this->Min = $val;
   }
 
-  function SetCVV($val) {
+  public function SetCVV($val)
+  {
     $this->CVV = $val;
   }
 
-  function SetBuyerName($val) {
+  public function SetBuyerName($val)
+  {
     $this->BuyerName = urlencode(trim($val));
   }
 
-  function SetBuyerEmail($val) {
+  public function SetBuyerEmail($val)
+  {
     $this->BuyerEmail = trim($val);
   }
 
-  function SetLanguage($val) {
+  public function SetLanguage($val)
+  {
     $this->Language = trim($val);
   }
 
-  function SetCustomInfo($val) {
+  public function SetCustomInfo($val)
+  {
     $this->CustomInfo = urlencode(trim($val));
   }
 
-  function SetEncryptedString($val) {
+  public function SetEncryptedString($val)
+  {
     $this->EncryptedString = $val;
   }
 
   // Getter methods
-  function GetShopLogin() {
+  public function GetShopLogin()
+  {
     return $this->ShopLogin;
   }
 
-  function GetCurrency() {
+  public function GetCurrency()
+  {
     return $this->Currency;
   }
 
-  function GetAmount() {
+  public function GetAmount()
+  {
     return $this->Amount;
   }
 
-  function GetCountry() {
+  public function GetCountry()
+  {
     return $this->country;
   }
 
-  function GetVBV() {
+  public function GetVBV()
+  {
     return $this->vbv;
   }
 
-  function GetVBVrisp() {
+  public function GetVBVrisp()
+  {
     return $this->vbvrisp;
   }
 
-  function GetShopTransactionID() {
+  public function GetShopTransactionID()
+  {
     return urldecode($this->ShopTransactionID);
   }
 
-  function GetBuyerName() {
+  public function GetBuyerName()
+  {
     return urldecode($this->BuyerName);
   }
 
-  function GetBuyerEmail() {
+  public function GetBuyerEmail()
+  {
     return $this->BuyerEmail;
   }
 
-  function GetCustomInfo() {
+  public function GetCustomInfo()
+  {
     return urldecode($this->CustomInfo);
   }
 
-  function GetAuthorizationCode() {
+  public function GetAuthorizationCode()
+  {
     return $this->AuthorizationCode;
   }
 
-  function GetErrorCode() {
+  public function GetErrorCode()
+  {
     return $this->ErrorCode;
   }
 
-  function GetErrorDescription() {
+  public function GetErrorDescription()
+  {
     return $this->ErrorDescription;
   }
 
-  function GetBankTransactionID() {
+  public function GetBankTransactionID()
+  {
     return $this->BankTransactionID;
   }
 
-  function GetTransactionResult() {
+  public function GetTransactionResult()
+  {
     return $this->TransactionResult;
   }
 
-  function GetAlertCode() {
+  public function GetAlertCode()
+  {
     return $this->AlertCode;
   }
 
-  function GetAlertDescription() {
+  public function GetAlertDescription()
+  {
     return $this->AlertDescription;
   }
 
-  function GetEncryptedString() {
+  public function GetEncryptedString()
+  {
     return $this->EncryptedString;
   }
 
-  function Encrypt() {
+  public function Encrypt()
+  {
     $err = "";
     $this->ErrorCode = "0";
     $this->ErrorDescription = "";
@@ -247,28 +282,30 @@ class GestPayCrypt {
     if (empty($this->ShopLogin)) {
       $this->ErrorCode = "546";
       $this->ErrorDescription = "IDshop not valid";
+
       return false;
     }
 
     if (empty($this->Currency)) {
       $this->ErrorCode = "552";
       $this->ErrorDescription = "Currency not valid";
+
       return false;
     }
 
     if (empty($this->Amount)) {
       $this->ErrorCode = "553";
       $this->ErrorDescription = "Amount not valid";
+
       return false;
     }
 
     if (empty($this->ShopTransactionID)) {
       $this->ErrorCode = "551";
       $this->ErrorDescription = "Shop Transaction ID not valid";
+
       return false;
     }
-
-
 
     $this->ToEncrypt($this->CVV, "PAY1_CVV");
     $this->ToEncrypt($this->Min, "PAY1_MIN");
@@ -305,7 +342,8 @@ class GestPayCrypt {
     return true;
   }
 
-  function Decrypt() {
+  public function Decrypt()
+  {
     $err = "";
     $this->ErrorCode = "0";
     $this->ErrorDescription = "";
@@ -313,12 +351,14 @@ class GestPayCrypt {
     if (empty($this->ShopLogin)) {
       $this->ErrorCode = "546";
       $this->ErrorDescription = "IDshop not valid";
+
       return false;
     }
 
     if (empty($this->EncryptedString)) {
       $this->ErrorCode = "1009";
       $this->ErrorDescription = "String to Decrypt not valid";
+
       return false;
     }
 
@@ -336,6 +376,7 @@ class GestPayCrypt {
     } elseif (empty($this->Decrypted)) {
       $this->ErrorCode = "9999";
       $this->ErrorDescription = "Decrypted string is empty";
+
       return false;
     }
 
@@ -351,7 +392,8 @@ class GestPayCrypt {
   }
 
   // Private
-  function ToEncrypt($value, $tagvalue) {
+  public function ToEncrypt($value, $tagvalue)
+  {
     $equal = $tagvalue ? "=" : "";
 
     if (!empty($value)) {
@@ -359,7 +401,8 @@ class GestPayCrypt {
     }
   }
 
-  function HttpGetResponse($host, $uri, $crypt) {
+  public function HttpGetResponse($host, $uri, $crypt)
+  {
     $response = "";
     $req = $crypt ? "crypt" : "decrypt";
 
@@ -390,13 +433,15 @@ class GestPayCrypt {
     } else {
       $this->ErrorCode = "9999";
       $this->ErrorDescription = "Response from server not valid";
+
       return -1;
     }
 
     return $response;
   }
 
-  function HttpGetLine($host, $uri, $port = 80) {
+  public function HttpGetLine($host, $uri, $port = 80)
+  {
     $in = fsockopen($host, $port, $errno, $errstr, 60);
     if (!$in) {
       $this->ErrorCode = "9999";
@@ -420,9 +465,9 @@ class GestPayCrypt {
     return $line;
   }
 
-  function Parsing() {
+  public function Parsing()
+  {
     $keyval = explode($this->separator, $this->Decrypted);
-
 
     foreach ($keyval as $tagPAY1) {
       $tagPAY1val = explode("=", $tagPAY1);
@@ -475,10 +520,11 @@ class GestPayCrypt {
 
 }
 
-class GestPayCryptHS extends GestPayCrypt {
-
+class GestPayCryptHS extends GestPayCrypt
+{
   // Constructor
-  function GestPayCryptHS() {
+  public function GestPayCryptHS()
+  {
     $this->ShopLogin = "";
     $this->Currency = "";
     $this->Amount = "";
@@ -514,7 +560,8 @@ class GestPayCryptHS extends GestPayCrypt {
     $this->debug = false;
   }
 
-  function HttpGetLine($host, $uri, $port = 443) {
+  public function HttpGetLine($host, $uri, $port = 443)
+  {
     if (function_exists("version_compare")
             && version_compare(phpversion(), "4.3.0", ">=")
             && extension_loaded("openssl")) {
@@ -551,6 +598,7 @@ class GestPayCryptHS extends GestPayCrypt {
       if ($ret_num != 0) {
         $this->ErrorCode = "9999";
         $this->ErrorDescription = "Error while executing: " . $exec_str;
+
         return -1;
       }
 
@@ -567,5 +615,3 @@ class GestPayCryptHS extends GestPayCrypt {
   }
 
 }
-
-?>

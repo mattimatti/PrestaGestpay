@@ -1,3 +1,11 @@
+0.4.5
+Added missing logo in modules backend section
+Updated some italian translations
+Added missing logo in configuration page
+Minor css+html changes in configuration page
+Applied PSR-1 and PSR-2 rules (using PHP-CS-Fixer https://github.com/fabpot/PHP-CS-Fixer )
+
+---
 0.4.4
 Fixed install error in Prestashop 1.4  (thanks monkie)
 

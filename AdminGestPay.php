@@ -37,7 +37,7 @@
 
       // TODO Use DB tables to set language.
       // TODO Should we use Smarty for templating?
-      switch(Tools::getValue('id_lang')) {
+      switch (Tools::getValue('id_lang')) {
         case 1 :
           $lang = 2;
           break;
@@ -103,5 +103,3 @@
             </fieldset>';
     }
   }
-
-?>
