@@ -4,6 +4,7 @@ Updated some italian translations
 Added missing logo in configuration page
 Minor css+html changes in configuration page
 Applied PSR-1 and PSR-2 rules (using PHP-CS-Fixer https://github.com/fabpot/PHP-CS-Fixer )
+Optimized images
 
 ---
 0.4.4
