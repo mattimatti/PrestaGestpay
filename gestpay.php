@@ -27,8 +27,6 @@
 // TODO this class is getting too big. We must start to refactor
 include_once(_PS_MODULE_DIR_ . "gestpay/lib/GestPayCrypt/GestPayCrypt.inc.php");
 
-// TODO make the utilities class work
-//include_once(_PS_MODULE_DIR_."gestpay/lib/utilities.php");
 class gestpay extends PaymentModule
 {
   private $_html = '';
@@ -36,7 +34,7 @@ class gestpay extends PaymentModule
   public $details;
   public $owner;
   public $address;
-
+  
   /**
    * Constructor for the class GestPay
    *
@@ -58,11 +56,9 @@ class gestpay extends PaymentModule
                         'GESTPAY_LOGIN_USER_TEST',
                         'GESTPAY_PASSWORD_TEST',
                         'GESTPAY_MERCHANT_CODE_TEST',
-                        'GESTPAY_TESTMODE',
                         'GESTPAY_ACCOUNT_TYPE'
                     )
     );
-
     if (isset($config['GESTPAY_LOGIN_USER']))
       $this->login_user = $config['GESTPAY_LOGIN_USER'];
     if (isset($config['GESTPAY_PASSWORD']))
@@ -77,10 +73,6 @@ class gestpay extends PaymentModule
       $this->merchant_code_test = $config['GESTPAY_MERCHANT_CODE_TEST'];
     if (isset($config['GESTPAY_ACCOUNT_TYPE']))
       $this->account_type = $config['GESTPAY_ACCOUNT_TYPE'];
-    // TODO verify why when you save the configuration removing testmode, it
-    // keeps selected and after refresh it's not selected anymore (bug)
-    if (isset($config['GESTPAY_TESTMODE']))
-      $this->test_mode = $config['GESTPAY_TESTMODE'];
 
     parent::__construct(); /* The parent construct is required for translations */
 
@@ -100,8 +92,13 @@ class gestpay extends PaymentModule
    */
   public function install()
   {
+    
+    $admin_payment_tab_id = Tab::getIdFromClassName('AdminPayment');
     if (!parent::install()
-            OR !$this->installDB()
+            OR !$this->installModuleTab('AdminGestPay', 
+                    array(1 => "GestPay", 2 => "GestPay", 3 => "GestPay", 4 => "GestPay", 5 => "GestPay"), 
+                    $admin_payment_tab_id) // Insert Admin Tab
+            OR !$this->installDB() // Add custom DB tables
             OR !$this->registerHook('payment')
             OR !$this->registerHook('paymentReturn')
     )
@@ -118,11 +115,9 @@ class gestpay extends PaymentModule
    */
   private function installDB()
   {
-    // Insert Admin Tab
-    $admin_payment_tab_id = Tab::getIdFromClassName('AdminPayment');
+    
     // Map GestPay currencies IDs with Prestashop IDs
-    if ($this->installModuleTab('AdminGestPay', array(1 => "GestPay", 2 => "GestPay", 3 => "GestPay", 4 => "GestPay", 5 => "GestPay"), $admin_payment_tab_id)
-            AND
+    if (
             Db::getInstance()->Execute('
           CREATE TABLE `' . _DB_PREFIX_ . 'gestpay_currencies_map` (
             `id_prestashop` INT UNSIGNED NOT NULL PRIMARY KEY,
@@ -320,7 +315,7 @@ class gestpay extends PaymentModule
       Configuration::updateValue('GESTPAY_LOGIN_USER_TEST', $_POST['login_user_test']);
       Configuration::updateValue('GESTPAY_PASSWORD_TEST', $this->blowfish->encrypt(trim($_POST['password_test'])));
       Configuration::updateValue('GESTPAY_MERCHANT_CODE_TEST', $_POST['merchant_code_test']);
-      Configuration::updateValue('GESTPAY_TESTMODE', (isset($_POST['test_mode']) ? 1 : 0));
+      Configuration::updateValue('GESTPAY_TESTMODE', $_POST['test_mode']);
       Configuration::updateValue('GESTPAY_ACCOUNT_TYPE', $_POST['account_type']);
     }
     $this->_html .= '<div class="conf confirm"><img src="../img/admin/ok.gif" alt="' . $this->l('ok') . '" /> ' . $this->l('Settings updated') . '</div>';
@@ -385,7 +380,7 @@ class gestpay extends PaymentModule
 
   private function _displayForm()
   {
-    // TODO better style for fieldset. Use class gestpay_input for styling.
+    // TODO better style for fieldset.
     // TODO Should we use Smarty for templating?
     $this->_html .= '<style type="text/css">
         #gestpay_config .labels {
@@ -460,7 +455,7 @@ class gestpay extends PaymentModule
               name="test_mode"
               value="1"
               style="width: 300px; margin-top: 10px; margin-left: 15px" ' .
-            ($this->test_mode ? 'checked' : '') . '/>
+              (Configuration::get('GESTPAY_TESTMODE') == '1' ? 'checked="checked"' : '') . '/>
           <br /><br />'
             . '<p>' . $this->l('Choose your account type:'). '</p><br />'.
           '<label for="basic" style="width: 100px; margin-top:-3px">BASIC</label><input
@@ -484,7 +479,6 @@ class gestpay extends PaymentModule
               value="2"' .
             ($this->account_type == 2 ? 'checked' : '') . '
               style="width: 20px;  margin-bottom: 15px" />
-
           <br />' .
             '<input
               class="button"
