@@ -387,61 +387,68 @@ class gestpay extends PaymentModule
   {
     // TODO better style for fieldset. Use class gestpay_input for styling.
     // TODO Should we use Smarty for templating?
-    $this->_html .= '<style type="text/css"></style>';
+    $this->_html .= '<style type="text/css">
+        #gestpay_config .labels {
+            width: 230px;
+        }
+        #gestpay_config .gestpay_input {
+            width: 300px; 
+            margin-bottom: 15px; 
+            margin-left: 15px
+        }
+        </style>';
     $this->_html .=
             '<form action="' . $_SERVER['REQUEST_URI'] . '" method="POST">
         <fieldset id="gestpay_config">
           <legend><img src="../img/admin/contact.gif" />' . $this->l('Account details') . '</legend>'.
-            '<h3>'. $this->l('Please specify your GestPay account details') .'</h3>'.
-            '<label for="login_user">'.$this->l('Login User:') .'</label>'.
+            '<h3>'. $this->l('Specify your GestPay account details') .'</h3>'.
+            '<label for="login_user" class="labels">' . $this->l('Login User:') . '</label>' .
             '<input
               id="login_user"
-              class="gestpay_input_top"
+              class="gestpay_input"
               type="text"
               name="login_user"
-              value="' . htmlentities(Tools::getValue('login_user', $this->login_user), ENT_COMPAT, 'UTF-8') . '"
-              style="width: 300px; margin-bottom: 15px; margin-left: 15px" />
+              value="' . htmlentities(Tools::getValue('login_user', $this->login_user), ENT_COMPAT, 'UTF-8') . '"/>
           <br />'
-            . $this->l('Password:') .
+            .'<label for="login_user" class="labels">'. $this->l('Password:') . '</label>' .
             '<input
               class="gestpay_input"
               type="password"
               name="password"
-              value="' . htmlentities(Tools::getValue('password', $this->password), ENT_COMPAT, 'UTF-8') . '"
-              style="width: 300px; margin-bottom: 15px; margin-left: 15px" />
+              value="' . htmlentities(Tools::getValue('password', $this->password), ENT_COMPAT, 'UTF-8') . '" />
            <br />'
-            . $this->l('Merchant Code:') .
+            .'<label for="login_user" class="labels">' . $this->l('Merchant Code:') . '</label>' .
             '<input
               class="gestpay_input"
               type="text"
               name="merchant_code"
-              value="' . htmlentities(Tools::getValue('merchant_code', $this->merchant_code), ENT_COMPAT, 'UTF-8') . '"
-              style="width: 300px; margin-bottom: 15px; margin-left: 15px" />
+              value="' . htmlentities(Tools::getValue('merchant_code', $this->merchant_code), ENT_COMPAT, 'UTF-8') . '" />
           <br />'
-            . $this->l('Login User for Test Mode:') .
+            .'<label for="login_user" class="labels">' . $this->l('Login User for Test Mode:') . '</label>' .
             '<input
               class="gestpay_input"
               type="text"
               name="login_user_test"
               value="' . htmlentities(Tools::getValue('login_user_test', $this->login_user_test), ENT_COMPAT, 'UTF-8') . '"
-              style="width: 300px; margin-bottom: 15px; margin-left: 15px" />
+               />
           <br />'
-            . $this->l('Password for Test Mode:') .
+            .'<label for="login_user" class="labels">' . $this->l('Password for Test Mode:') . '</label>' .
             '<input
+              class="gestpay_input"
               type="password"
               name="password_test"
               value="' . htmlentities(Tools::getValue('password_test', $this->password_test), ENT_COMPAT, 'UTF-8') . '"
-              style="width: 300px; margin-bottom: 15px; margin-left: 15px" />
+               />
            <br />'
-            . $this->l('Merchant Code for Test Mode:') .
+            .'<label for="login_user" class="labels">' . $this->l('Merchant Code for Test Mode:') . '</label>' .
             '<input
               class="gestpay_input"
               type="text"
               name="merchant_code_test"
               value="' . htmlentities(Tools::getValue('merchant_code_test', $this->merchant_code_test), ENT_COMPAT, 'UTF-8') . '"
-              style="width: 300px; margin-top: 10px; margin-left: 15px" />
+               />
           <br />'
-            . $this->l('Activate Test Mode on Frontend:') .
+            .'<label for="login_user" class="labels">' . $this->l('Activate Test Mode on Frontend:') . '</label>' .
             '<input
               type="checkbox"
               name="test_mode"

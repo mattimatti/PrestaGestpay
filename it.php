@@ -2,6 +2,11 @@
 
 global $_MODULE;
 $_MODULE = array();
+$_MODULE['<{gestpay}prestashop>admingestpay_bc3607b0f91eeea0692ac9c0cd8e9c41'] = 'Se ti piace questo modulo per piacere considera una donazione';
+$_MODULE['<{gestpay}prestashop>admingestpay_a7e7bf0670678ada030bd6bf273a7fa4'] = 'Pagina di backend di GestPay';
+$_MODULE['<{gestpay}prestashop>admingestpay_9b3b6fce73fdd1ee03bd676fa6cf1e3d'] = 'Accedi al backend di GestPay senza lasciare Prestashop';
+$_MODULE['<{gestpay}prestashop>admingestpay_f182b7a4b6fa2d1b5da683545a7b3ac1'] = 'Pagina di backend (modalità di test) di GestPay';
+$_MODULE['<{gestpay}prestashop>admingestpay_57249a972eeace4c00479e3540870c21'] = 'Accedi al backend di GestPay (modalità di test)  senza lasciare Prestashop';
 $_MODULE['<{gestpay}prestashop>gestpay_cc7e5aee4f74c3079b0dc7d5e9e6484c'] = 'Modulo Gestpay';
 $_MODULE['<{gestpay}prestashop>gestpay_60901c6442233fd136f7cb3a04e27dfe'] = 'Accetta i pagamenti attraverso GestPay';
 $_MODULE['<{gestpay}prestashop>gestpay_69a1a3ad8dd5da6db3c4da838a0cf9c7'] = 'Sei sicuro di voler eliminare i tuoi dettagli?';
@@ -23,7 +28,7 @@ $_MODULE['<{gestpay}prestashop>gestpay_9a0ef5c0605a74087781a9244f77f2ba'] = 'Que
 $_MODULE['<{gestpay}prestashop>gestpay_bc3607b0f91eeea0692ac9c0cd8e9c41'] = 'Se ti piace questo modulo per favore considera una donazione';
 $_MODULE['<{gestpay}prestashop>gestpay_1f90d983e0237302520fdda56f766573'] = 'Se il cliente sceglie questo metodo di pagamento, l\'ordine cambierà il suo stato una volta che il server GestPay conferma positivamente la transazione';
 $_MODULE['<{gestpay}prestashop>gestpay_8bc212f48680748479bbd322d4d73d3f'] = 'Dettagli di account';
-$_MODULE['<{gestpay}prestashop>gestpay_41186b3e0a5e7bebf48fe749c6811696'] = 'Per favore inserisci i tuoi dettagli dell\'account GestPay';
+$_MODULE['<{gestpay}prestashop>gestpay_8fbf139a3fb13aa38d55b9477696232a'] = 'Inserisci i dati dell\'account GestPay';
 $_MODULE['<{gestpay}prestashop>gestpay_67491f753f6d5f74c8312ab639d5d3cb'] = 'Codice ';
 $_MODULE['<{gestpay}prestashop>gestpay_b341a59d5636ed3d6a819137495b08a0'] = 'Chiave (PIN)';
 $_MODULE['<{gestpay}prestashop>gestpay_a9648f315ae508ce465a0c23f1c3a447'] = 'Codice esercente';
