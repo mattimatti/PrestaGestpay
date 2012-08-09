@@ -1,53 +1,52 @@
 0.4.5
-Added missing logo in modules backend section
-Updated some italian translations
-Added missing logo in configuration page
-Minor css+html changes in configuration page
-Applied PSR-1 and PSR-2 rules (using PHP-CS-Fixer https://github.com/fabpot/PHP-CS-Fixer )
-Optimized images
+* Added missing logo in modules backend section
+* Updated some italian translations
+* Added missing logo in configuration page
+* Minor css+html changes in configuration page
+* Applied PSR-1 and PSR-2 rules (using PHP-CS-Fixer https://github.com/fabpot/PHP-CS-Fixer )
+* Optimized images
 
 ---
 0.4.4
-Fixed install error in Prestashop 1.4  (thanks monkie)
+* Fixed install error in Prestashop 1.4  (thanks monkie)
 
 ---
 0.4.3
-Fixed a currency display bug in the return page (thanks Gloria)
-Fixed a customer name display bug in the return page (thanks Gloria)
+* Fixed a currency display bug in the return page (thanks Gloria)
+* Fixed a customer name display bug in the return page (thanks Gloria)
 
 ---
 0.4.2
-Added compatibility to Prestashop 1.4 (marco)
-Fixed issue #1 regarding tests (marco)
-Other minor fixes (marco)
+* Added compatibility to Prestashop 1.4 (marco)
+* Fixed issue #1 regarding tests (marco)
+* Other minor fixes (marco)
 
 ---
 0.4.1
-Removed debug code
+* Removed debug code
 
 ---
 0.4
-Added ability to choose between BASIC, ADVANCED or PROFESSIONAL account type
-Now it's not mandatory to insert test mode account data
-Allow shorter PIN (4 digits) for older accounts
-Fixed encryption for real accounts
+* Added ability to choose between BASIC, ADVANCED or PROFESSIONAL account type
+* Now it's not mandatory to insert test mode account data
+* Allow shorter PIN (4 digits) for older accounts
+* Fixed encryption for real accounts
 
 ---
 0.3.1
-Fixed include bug in backend
+* Fixed include bug in backend
 
 ---
 0.3
-Changed encryption method for passwords from custom Rc4Two to Prestashop Blowfish
-Minor fixes to backend
-Code cleanup
+* Changed encryption method for passwords from custom Rc4Two to Prestashop Blowfish
+* Minor fixes to backend
+* Code cleanup
 
 ---
 0.2
-Added italian translation
-Set real urls for GestPay Backend and Payment Gateway
+* Added italian translation
+* Set real urls for GestPay Backend and Payment Gateway
 
 ----
 0.1
 First release
-

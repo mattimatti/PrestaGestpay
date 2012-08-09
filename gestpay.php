@@ -410,46 +410,52 @@ class gestpay extends PaymentModule
               name="login_user"
               value="' . htmlentities(Tools::getValue('login_user', $this->login_user), ENT_COMPAT, 'UTF-8') . '"/>
           <br />'
-            .'<label for="login_user" class="labels">'. $this->l('Password:') . '</label>' .
+            .'<label for="password" class="labels">'. $this->l('Password:') . '</label>' .
             '<input
+              id="password"
               class="gestpay_input"
               type="password"
               name="password"
               value="' . htmlentities(Tools::getValue('password', $this->password), ENT_COMPAT, 'UTF-8') . '" />
            <br />'
-            .'<label for="login_user" class="labels">' . $this->l('Merchant Code:') . '</label>' .
+            .'<label for="merchant_code" class="labels">' . $this->l('Merchant Code:') . '</label>' .
             '<input
+              id="merchant_code"
               class="gestpay_input"
               type="text"
               name="merchant_code"
               value="' . htmlentities(Tools::getValue('merchant_code', $this->merchant_code), ENT_COMPAT, 'UTF-8') . '" />
           <br />'
-            .'<label for="login_user" class="labels">' . $this->l('Login User for Test Mode:') . '</label>' .
+            .'<label for="login_user_test" class="labels">' . $this->l('Login User for Test Mode:') . '</label>' .
             '<input
+              id="login_user_test"
               class="gestpay_input"
               type="text"
               name="login_user_test"
               value="' . htmlentities(Tools::getValue('login_user_test', $this->login_user_test), ENT_COMPAT, 'UTF-8') . '"
                />
           <br />'
-            .'<label for="login_user" class="labels">' . $this->l('Password for Test Mode:') . '</label>' .
+            .'<label for="password_test" class="labels">' . $this->l('Password for Test Mode:') . '</label>' .
             '<input
+              id="password_test"
               class="gestpay_input"
               type="password"
               name="password_test"
               value="' . htmlentities(Tools::getValue('password_test', $this->password_test), ENT_COMPAT, 'UTF-8') . '"
                />
            <br />'
-            .'<label for="login_user" class="labels">' . $this->l('Merchant Code for Test Mode:') . '</label>' .
+            .'<label for="merchant_code_test" class="labels">' . $this->l('Merchant Code for Test Mode:') . '</label>' .
             '<input
+              id="merchant_code_test"
               class="gestpay_input"
               type="text"
               name="merchant_code_test"
               value="' . htmlentities(Tools::getValue('merchant_code_test', $this->merchant_code_test), ENT_COMPAT, 'UTF-8') . '"
                />
           <br />'
-            .'<label for="login_user" class="labels">' . $this->l('Activate Test Mode on Frontend:') . '</label>' .
+            .'<label for="test_mode" class="labels">' . $this->l('Activate Test Mode on Frontend:') . '</label>' .
             '<input
+              id="test_mode"  
               type="checkbox"
               name="test_mode"
               value="1"
