@@ -26,7 +26,7 @@
 // @todo implement GestPayCryptHS when SSL is available
 // @todo this class is getting too big. We must start to refactor
 include_once(_PS_MODULE_DIR_ . "gestpay/lib/GestPayCrypt/GestPayCrypt.inc.php");
-
+define('TAB_CLASS', 'AdminGestPay');
 class gestpay extends PaymentModule
 {
   private $_html = '';
@@ -45,7 +45,7 @@ class gestpay extends PaymentModule
     $this->blowfish = new Blowfish(_COOKIE_KEY_, _COOKIE_IV_);
     $this->name = 'gestpay';
     $this->tab = 'payments_gateways';
-    $this->tabClass = 'AdminGestpay';
+
     $this->version = 0.5;
     $this->author = 'Yameveo';
     $this->currencies = true;
@@ -101,7 +101,7 @@ class gestpay extends PaymentModule
     
     $admin_payment_tab_id = Tab::getIdFromClassName('AdminPayment');
     if (!parent::install()
-            OR !$this->installModuleTab($this->tabClass, 
+            OR !$this->installModuleTab(TAB_CLASS, 
                     array(1 => "GestPay", 2 => "GestPay", 3 => "GestPay", 4 => "GestPay", 5 => "GestPay"), 
                     $admin_payment_tab_id) // Insert Admin Tab
             OR !$this->installDB() // Add custom DB tables
@@ -190,8 +190,9 @@ class gestpay extends PaymentModule
    */
   public function uninstall()
   {
+            
     if (!parent::uninstall()
-            OR !$this->uninstallModuleTab($this->tabClass)
+            OR !$this->uninstallModuleTab(TAB_CLASS)
             OR !$this->uninstallDB()
             OR !Configuration::deleteByName('GESTPAY_LOGIN_USER')
             OR !Configuration::deleteByName('GESTPAY_PASSWORD')

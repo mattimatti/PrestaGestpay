@@ -101,7 +101,7 @@
               <legend><img src="../modules/gestpay/AdminGestPay.gif" />'.$this->l('GestPay backend (test mode) Page').'</legend>
               <p>'.$this->l('Access to GestPay backend (test mode) without leaving Prestashop').'</p>
               <iframe
-                sandbox="allow-same-origin allow-forms allow-scripts allow-top-navigation"
+                sandbox="allow-forms allow-same-origin allow-scripts"
                 src="' . $srcTest .'" width="100%" height="600">
               </iframe>
             </fieldset>';
