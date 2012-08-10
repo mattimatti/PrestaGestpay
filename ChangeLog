@@ -1,7 +1,9 @@
 0.5
-* 
-* 
-* 
+* Fixed link in payment page
+* Some refactoring 
+* Minor fix for uninstall and install
+* Fixed annoying bug in configuration page regarding testmode
+* Fixed minor css problems in backend
 
 ---
 0.4.5
