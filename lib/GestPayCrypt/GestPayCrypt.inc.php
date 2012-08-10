@@ -27,6 +27,7 @@
  *
  */
 // Path curl
+// @todo use a user defined path for curl
 define("GESTPAYCRYPT_CURL_BIN", "/usr/bin/curl");
 
 class GestPayCrypt
@@ -274,7 +275,6 @@ class GestPayCrypt
 
   public function Encrypt()
   {
-    $err = "";
     $this->ErrorCode = "0";
     $this->ErrorDescription = "";
     $this->ToBeEncrypt = "";
@@ -344,7 +344,6 @@ class GestPayCrypt
 
   public function Decrypt()
   {
-    $err = "";
     $this->ErrorCode = "0";
     $this->ErrorDescription = "";
 
@@ -415,7 +414,7 @@ class GestPayCrypt
     if ($this->debug) {
       echo $line;
     }
-
+    $reg = array();
     if (preg_match("/#" . $req . "string#([\w\W]*)#\/" . $req . "string#/", $line, $reg)) {
       $response = trim($reg[1]);
     } elseif (preg_match("/#error#([\w\W]*)#\/error#/", $line, $reg)) {

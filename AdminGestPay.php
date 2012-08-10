@@ -62,6 +62,7 @@
                   )
                 );
       // Donation button
+      
       echo '<b>'.$this->l('If you like this module please consider a donation').'</b><br />
             <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
               <input type="hidden" name="cmd" value="_s-xclick">
@@ -72,33 +73,37 @@
               </form>
               <br />';
       // Gestpay iframes
+      $src = "https://ecomm.sella.it/gestpay/backoffice/loginGestPay.asp?".
+                  "IDLanguage=$lang".
+                  "&help=".
+                  "&action=login".
+                  "&MerchantLogin={$config['GESTPAY_MERCHANT_CODE']}".
+                  "&LoginUser={$config['GESTPAY_LOGIN_USER']}".
+                  "&Password={$this->blowfish->decrypt($config['GESTPAY_PASSWORD'])}";
+      $srcTest = "https://testecomm.sella.it/gestpay/backoffice/loginGestPay.asp?".
+                  "IDLanguage=$lang".
+                  "&help=".
+                  "&action=login".
+                  "&MerchantLogin={$config['GESTPAY_MERCHANT_CODE_TEST']}".
+                  "&LoginUser={$config['GESTPAY_LOGIN_USER_TEST']}".
+                  "&Password={$this->blowfish->decrypt($config['GESTPAY_PASSWORD_TEST'])}";
+      // @todo fix empty html in chrome and safari (to be tested on IE)
       echo '<fieldset>
               <legend><img src="../modules/gestpay/AdminGestPay.gif" />'.$this->l('GestPay backend Page').'</legend>
               <p>'.$this->l('Access to GestPay backend without leaving Prestashop').'</p>
-              <iframe
-                src=https://ecomm.sella.it/gestpay/backoffice/loginGestPay.asp?'.
-                  'IDLanguage='.$lang.
-                  '&help='.
-                  '&action=login'.
-                  '&MerchantLogin='.$config['GESTPAY_MERCHANT_CODE'].
-                  '&LoginUser='.$config['GESTPAY_LOGIN_USER'].
-                  '&Password='.$this->blowfish->decrypt($config['GESTPAY_PASSWORD']).
-                  ' width="100%" height="600">
+              <iframe 
+                sandbox="allow-forms allow-same-origin allow-scripts"
+                src="'.'" width="100%" height="600">
               </iframe>
-            </fieldset>
-            <br />
+            </fieldset>';
+      echo  '<br />
             <fieldset>
               <legend><img src="../modules/gestpay/AdminGestPay.gif" />'.$this->l('GestPay backend (test mode) Page').'</legend>
               <p>'.$this->l('Access to GestPay backend (test mode) without leaving Prestashop').'</p>
               <iframe
-                src=https://testecomm.sella.it/gestpay/backoffice/loginGestPay.asp?'.
-                  'IDLanguage='.$lang.
-                  '&help='.
-                  '&action=login'.
-                  '&MerchantLogin='.$config['GESTPAY_MERCHANT_CODE_TEST'].
-                  '&LoginUser='.$config['GESTPAY_LOGIN_USER_TEST'].
-                  '&Password='.$this->blowfish->decrypt($config['GESTPAY_PASSWORD_TEST']).
-                  ' width="100%" height="600">
+                sandbox="allow-same-origin allow-top-navigation allow-forms"
+                seamless
+                src="'.$srcTest.'" width="100%" height="600">
               </iframe>
             </fieldset>';
     }

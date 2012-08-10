@@ -608,6 +608,7 @@ class gestpay extends PaymentModule
     $gestpay_crypt->Encrypt();
 
     $error_description = $gestpay_crypt->GetErrorDescription();
+    // @todo manage error with an Exception
     if ($error_description != "") {
       echo "Encoding Error: " . $gestpay_crypt->GetErrorCode() . " " . $error_description . "<br />";
     } else {
@@ -622,7 +623,6 @@ class gestpay extends PaymentModule
    * Decrypts 'a' and 'b' parameters to determine if a payment went fine or
    * an hack it's been attempted
    *
-   * @global <type> $cookie
    * @param string $a contains the shop login
    * @param string $b contains encrypted transaction data
    * @return GestPayCrypt contains decrypted transaction data
@@ -630,8 +630,6 @@ class gestpay extends PaymentModule
    */
   private function deCrypt($a, $b)
   {
-    global $cookie;
-
     $gestpay_decrypt = new GestPayCrypt();
     $gestpay_decrypt->SetShopLogin($a);
     $gestpay_decrypt->SetEncryptedString($b);
@@ -681,24 +679,24 @@ class gestpay extends PaymentModule
    */
   public function validatePayment($a, $b)
   {
-    global $smarty, $cookie;
+    global $smarty;
 
     $gestpay_decrypt = $this->deCrypt($a, $b);
 
-    $shop_login = trim($gestpay_decrypt->GetShopLogin());
+//    $shop_login = trim($gestpay_decrypt->GetShopLogin());
     $currency = $this->convertToCurrencySymbol($gestpay_decrypt->GetCurrency());
     $amount = floatval($gestpay_decrypt->GetAmount());
     $shop_transaction_id = trim($gestpay_decrypt->GetShopTransactionID());
     $buyer_name = preg_replace('#[\W]#', ' ', trim($gestpay_decrypt->GetBuyerName()));
-    $buyer_email = trim($gestpay_decrypt->GetBuyerEmail());
+//    $buyer_email = trim($gestpay_decrypt->GetBuyerEmail());
     $transaction_result = trim($gestpay_decrypt->GetTransactionResult());
-    $authorization_code = trim($gestpay_decrypt->GetAuthorizationCode());
+//    $authorization_code = trim($gestpay_decrypt->GetAuthorizationCode());
     $error_code = trim($gestpay_decrypt->GetErrorCode());
     $error_description = trim($gestpay_decrypt->GetErrorDescription());
-    $error_bank_transaction_id = trim($gestpay_decrypt->GetBankTransactionID());
-    $alert_code = trim($gestpay_decrypt->GetAlertCode());
-    $alert_description = trim($gestpay_decrypt->GetAlertDescription());
-    $custom_info = trim($gestpay_decrypt->GetCustomInfo());
+//    $error_bank_transaction_id = trim($gestpay_decrypt->GetBankTransactionID());
+//    $alert_code = trim($gestpay_decrypt->GetAlertCode());
+//    $alert_description = trim($gestpay_decrypt->GetAlertDescription());
+//    $custom_info = trim($gestpay_decrypt->GetCustomInfo());
 
     $this->validateOrder($shop_transaction_id, ($transaction_result == 'OK' ? _PS_OS_PAYMENT_ : _PS_OS_ERROR_), $amount, 'GestPay');
 
@@ -749,7 +747,7 @@ class gestpay extends PaymentModule
     if (!$this->active)
       return;
 
-    global $smarty, $cookie;
+    global $smarty;
     $smarty->assign(array(
         'this_path' => $this->_path,
         'this_path_ssl' => (Configuration::get('PS_SSL_ENABLED') ? 'https://' : 'http://') .
@@ -769,11 +767,7 @@ class gestpay extends PaymentModule
    */
   public function getGestPayDomainName()
   {
-    if (Configuration::get('GESTPAY_TESTMODE'))
-      $domain_name = 'testecomm.sella.it';
-    else
-      $domain_name = 'ecomms2s.sella.it';
-
+    $domain_name = Configuration::get('GESTPAY_TESTMODE') ? 'testecomm.sella.it' : 'ecomms2s.sella.it';
     return $domain_name;
   }
 
@@ -786,11 +780,7 @@ class gestpay extends PaymentModule
    */
   public function getGestPayUrl()
   {
-    if (Configuration::get('GESTPAY_TESTMODE'))
-      $url = 'https://testecomm.sella.it/gestpay/pagam.asp';
-    else
-      $url = 'https://ecomm.sella.it/gestpay/pagam.asp';
-
+    $url = Configuration::get('GESTPAY_TESTMODE') ? 'https://testecomm.sella.it/gestpay/pagam.asp' : 'https://ecomm.sella.it/gestpay/pagam.asp';
     return $url;
   }
 
