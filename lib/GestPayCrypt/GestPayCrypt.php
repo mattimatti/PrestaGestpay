@@ -1,13 +1,13 @@
 <?php
 
 /**
- * GestPayCrypt e GestPayCryptHS 2.0.1
+ * GestPayCrypt
  * Copyright (C) 2001-2004 Alessandro Astarita <aleast@capri.it>
  *
  * http://gestpaycryptphp.sourceforge.net/
  *
- * GestPayCrypt-PHP is an implementation in PHP of GestPayCrypt e
- * GestPayCryptHS italian bank Banca Sella java classes. It allows to
+ * This is an implementation in PHP of GestPayCrypt
+ * italian bank Banca Sella java classes. It allows to
  * connect to online credit card payment GestPay.
  *
  *
@@ -515,103 +515,6 @@ class GestPayCrypt
     }
 
     $this->CustomInfo = substr($this->CustomInfo, 0, - strlen($this->separator));
-  }
-
-}
-
-class GestPayCryptHS extends GestPayCrypt
-{
-  // Constructor
-  public function GestPayCryptHS($debug = false, $curlPath = "/usr/bin/curl")
-  {
-    $this->ShopLogin = "";
-    $this->Currency = "";
-    $this->Amount = "";
-    $this->ShopTransactionID = "";
-    $this->CardNumber = "";
-    $this->ExpMonth = "";
-    $this->ExpYear = "";
-    $this->BuyerName = "";
-    $this->BuyerEmail = "";
-    $this->Language = "";
-    $this->CustomInfo = "";
-    $this->AuthorizationCode = "";
-    $this->ErrorCode = "0";
-    $this->ErrorDescription = "";
-    $this->BankTransactionID = "";
-    $this->AlertCode = "";
-    $this->AlertDescription = "";
-    $this->EncryptedString = "";
-    $this->ToBeEncrypt = "";
-    $this->Decrypted = "";
-    $this->ProtocolAuthServer = "https";
-    $this->DomainName = "ecomm.sella.it";
-    $this->ScriptEnCrypt = "/CryptHTTPS/Encrypt.asp";
-    $this->ScriptDecrypt = "/CryptHTTPS/Decrypt.asp";
-    $this->separator = "*P1*";
-    $this->errNumber = "0";
-    $this->Min = "";
-    $this->CVV = "";
-    $this->country = "";
-    $this->vbvrisp = "";
-    $this->vbv = "";
-
-    $this->debug = $debug;
-    $this->curlPath = $curlPath;
-  }
-
-  public function HttpGetLine($host, $uri, $port = 443)
-  {
-    if (function_exists("version_compare")
-            && version_compare(phpversion(), "4.3.0", ">=")
-            && extension_loaded("openssl")) {
-
-      if ($this->debug) {
-        echo "HttpGetLine(): php ssl\n";
-      }
-
-      return parent::HttpGetLine("ssl://" . $host, $uri, 443);
-    } elseif (extension_loaded("curl")) {
-      if ($this->debug) {
-        echo "HttpGetLine(): curl ext\n";
-      }
-
-      $curl = curl_init("https://" . $host . $uri);
-      curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-      $tmp = curl_exec($curl);
-      curl_close($curl);
-
-      $lines = explode("\n", $tmp);
-
-      return $lines[0];
-    } else {
-      if ($this->debug) {
-        echo "HttpGetLine(): curl bin\n";
-      }
-
-      $exec_str = $this->curlPath .
-              " -s -m 120 -L " .
-              escapeshellarg($this->ProtocolAuthServer . "://" . $this->DomainName . $uri);
-
-      exec($exec_str, $ret_arr, $ret_num);
-
-      if ($ret_num != 0) {
-        $this->ErrorCode = "9999";
-        $this->ErrorDescription = "Error while executing: " . $exec_str;
-
-        return -1;
-      }
-
-      if (!is_array($ret_arr)) {
-        $this->ErrorCode = "9999";
-        $this->ErrorDescription = "Error while executing: " . $exec_str . " - " .
-                "\$ret_arr is not an array";
-
-        return -1;
-      }
-
-      return $ret_arr[0];
-    }
   }
 
 }

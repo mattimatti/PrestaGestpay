@@ -1,6 +1,8 @@
 GestPay Module for Prestashop
 
-Per far funzionare il modulo bisogna impostare gli url di risposta positiva e negativa sul backend di Banca Sella.
+Questo modulo funziona esclusivamente con architettura Crittografia (OTP e S2S non sono supportati)
+
+Per far funzionare correttamente il modulo bisogna impostare gli url di risposta positiva e negativa sul backend di Banca Sella.
 
 Link al backend di test: https://testecomm.sella.it/GestPay/BackOffice/LoginGestPay.asp
 

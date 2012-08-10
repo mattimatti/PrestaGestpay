@@ -20,12 +20,12 @@
  *
  * @author Andrea De Pirro <andrea.depirro@yameveo.com>, Enrico Aillaud <enrico.aillaud@yameveo.com>
  * @copyright Andrea De Pirro & Enrico Aillaud
- * @version 0.4.5
+ * @version 0.5
  *
  */
 // @todo implement GestPayCryptHS when SSL is available
 // @todo this class is getting too big. We must start to refactor
-include_once(_PS_MODULE_DIR_ . "gestpay/lib/GestPayCrypt/GestPayCrypt.inc.php");
+include_once(_PS_MODULE_DIR_ . "gestpay/lib/GestPayCrypt/GestPayCrypt.php");
 define('TAB_CLASS', 'AdminGestPay');
 class gestpay extends PaymentModule
 {
