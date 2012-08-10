@@ -17,7 +17,7 @@
 ---
 0.4.4
 * Fixed install error in Prestashop 1.4  (thanks monkie)
-
+git push origin :refs/tags/
 ---
 0.4.3
 * Fixed a currency display bug in the return page (thanks Gloria)
