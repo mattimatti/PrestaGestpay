@@ -73,14 +73,14 @@
               </form>
               <br />';
       // Gestpay iframes
-      $src = "https://ecomm.sella.it/gestpay/backoffice/loginGestPay.asp?".
+      $src = "https://ecomm.sella.it/GestPay/BackOffice/LoginGestPay.asp?".
                   "IDLanguage=$lang".
                   "&help=".
                   "&action=login".
                   "&MerchantLogin={$config['GESTPAY_MERCHANT_CODE']}".
                   "&LoginUser={$config['GESTPAY_LOGIN_USER']}".
                   "&Password={$this->blowfish->decrypt($config['GESTPAY_PASSWORD'])}";
-      $srcTest = "https://testecomm.sella.it/gestpay/backoffice/loginGestPay.asp?".
+      $srcTest = "https://testecomm.sella.it/GestPay/BackOffice/loginGestPay.asp?".
                   "IDLanguage=$lang".
                   "&help=".
                   "&action=login".
@@ -93,7 +93,7 @@
               <p>'.$this->l('Access to GestPay backend without leaving Prestashop').'</p>
               <iframe 
                 sandbox="allow-forms allow-same-origin allow-scripts"
-                src="'.'" width="100%" height="600">
+                src="'. $src .'" width="100%" height="600">
               </iframe>
             </fieldset>';
       echo  '<br />
@@ -101,9 +101,9 @@
               <legend><img src="../modules/gestpay/AdminGestPay.gif" />'.$this->l('GestPay backend (test mode) Page').'</legend>
               <p>'.$this->l('Access to GestPay backend (test mode) without leaving Prestashop').'</p>
               <iframe
-                sandbox="allow-same-origin allow-top-navigation allow-forms"
-                seamless
-                src="'.$srcTest.'" width="100%" height="600">
+                sandbox="allow-same-origin allow-forms allow-scripts"
+                
+                src="' . $srcTest .'" width="100%" height="600">
               </iframe>
             </fieldset>';
     }

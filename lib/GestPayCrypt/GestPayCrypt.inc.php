@@ -26,10 +26,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
  */
-// Path curl
-// @todo use a user defined path for curl
-define("GESTPAYCRYPT_CURL_BIN", "/usr/bin/curl");
-
 class GestPayCrypt
 {
   // Public
@@ -65,8 +61,11 @@ class GestPayCrypt
   public $country;
   public $vbvrisp;
   public $vbv;
+  
+  public $debug;
+  public $curlPath;
 
-  public function GestPayCrypt()
+  public function GestPayCrypt($debug = false, $curlPath = "/usr/bin/curl")
   {
     $this->ShopLogin = "";
     $this->Currency = "";
@@ -101,8 +100,9 @@ class GestPayCrypt
     $this->country = "";
     $this->vbvrisp = "";
     $this->vbv = "";
-
-    $this->debug = false;
+    
+    $this->debug = $debug;
+    $this->curlPath = $curlPath;
   }
 
   // Public
@@ -522,7 +522,7 @@ class GestPayCrypt
 class GestPayCryptHS extends GestPayCrypt
 {
   // Constructor
-  public function GestPayCryptHS()
+  public function GestPayCryptHS($debug = false, $curlPath = "/usr/bin/curl")
   {
     $this->ShopLogin = "";
     $this->Currency = "";
@@ -556,7 +556,8 @@ class GestPayCryptHS extends GestPayCrypt
     $this->vbvrisp = "";
     $this->vbv = "";
 
-    $this->debug = false;
+    $this->debug = $debug;
+    $this->curlPath = $curlPath;
   }
 
   public function HttpGetLine($host, $uri, $port = 443)
@@ -588,7 +589,7 @@ class GestPayCryptHS extends GestPayCrypt
         echo "HttpGetLine(): curl bin\n";
       }
 
-      $exec_str = GESTPAYCRYPT_CURL_BIN .
+      $exec_str = $this->curlPath .
               " -s -m 120 -L " .
               escapeshellarg($this->ProtocolAuthServer . "://" . $this->DomainName . $uri);
 

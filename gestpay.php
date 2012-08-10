@@ -34,6 +34,7 @@ class gestpay extends PaymentModule
   public $details;
   public $owner;
   public $address;
+  public $tabClass;
   
   /**
    * Constructor for the class GestPay
@@ -44,7 +45,9 @@ class gestpay extends PaymentModule
     $this->blowfish = new Blowfish(_COOKIE_KEY_, _COOKIE_IV_);
     $this->name = 'gestpay';
     $this->tab = 'payments_gateways';
-    $this->version = 0.4;
+    $this->tabClass = 'AdminGestpay';
+    $this->version = 0.5;
+    $this->author = 'Yameveo';
     $this->currencies = true;
     $this->currencies_mode = 'checkbox';
 
@@ -56,7 +59,8 @@ class gestpay extends PaymentModule
                         'GESTPAY_LOGIN_USER_TEST',
                         'GESTPAY_PASSWORD_TEST',
                         'GESTPAY_MERCHANT_CODE_TEST',
-                        'GESTPAY_ACCOUNT_TYPE'
+                        'GESTPAY_ACCOUNT_TYPE',
+                        'GESTPAY_CURL_PATH'
                     )
     );
     if (isset($config['GESTPAY_LOGIN_USER']))
@@ -73,6 +77,8 @@ class gestpay extends PaymentModule
       $this->merchant_code_test = $config['GESTPAY_MERCHANT_CODE_TEST'];
     if (isset($config['GESTPAY_ACCOUNT_TYPE']))
       $this->account_type = $config['GESTPAY_ACCOUNT_TYPE'];
+    if (isset($config['GESTPAY_CURL_PATH']))
+      $this->curl_path= $config['GESTPAY_CURL_PATH'];
 
     parent::__construct(); /* The parent construct is required for translations */
 
@@ -95,7 +101,7 @@ class gestpay extends PaymentModule
     
     $admin_payment_tab_id = Tab::getIdFromClassName('AdminPayment');
     if (!parent::install()
-            OR !$this->installModuleTab('AdminGestPay', 
+            OR !$this->installModuleTab($this->tabClass, 
                     array(1 => "GestPay", 2 => "GestPay", 3 => "GestPay", 4 => "GestPay", 5 => "GestPay"), 
                     $admin_payment_tab_id) // Insert Admin Tab
             OR !$this->installDB() // Add custom DB tables
@@ -185,7 +191,7 @@ class gestpay extends PaymentModule
   public function uninstall()
   {
     if (!parent::uninstall()
-            OR !$this->uninstallModuleTab()
+            OR !$this->uninstallModuleTab($this->tabClass)
             OR !$this->uninstallDB()
             OR !Configuration::deleteByName('GESTPAY_LOGIN_USER')
             OR !Configuration::deleteByName('GESTPAY_PASSWORD')
@@ -195,6 +201,7 @@ class gestpay extends PaymentModule
             OR !Configuration::deleteByName('GESTPAY_MERCHANT_CODE_TEST')
             OR !Configuration::deleteByName('GESTPAY_TESTMODE')
             OR !Configuration::deleteByName('GESTPAY_ACCOUNT_TYPE')
+            OR !Configuration::deleteByName('GESTPAY_CURL_PATH')
     )
 
       return false;
@@ -207,7 +214,7 @@ class gestpay extends PaymentModule
    * @return boolean true if everything went fine
    *
    */
-  private function uninstallModuleTab()
+  private function uninstallModuleTab($tabClass)
   {
     $idTab = Tab::getIdFromClassName('AdminGestPay');
     if ($idTab != 0) {
@@ -317,6 +324,7 @@ class gestpay extends PaymentModule
       Configuration::updateValue('GESTPAY_MERCHANT_CODE_TEST', $_POST['merchant_code_test']);
       Configuration::updateValue('GESTPAY_TESTMODE', $_POST['test_mode']);
       Configuration::updateValue('GESTPAY_ACCOUNT_TYPE', $_POST['account_type']);
+      Configuration::updateValue('GESTPAY_CURL_PATH', $_POST['curl_path']);
     }
     $this->_html .= '<div class="conf confirm"><img src="../img/admin/ok.gif" alt="' . $this->l('ok') . '" /> ' . $this->l('Settings updated') . '</div>';
   }
@@ -446,6 +454,15 @@ class gestpay extends PaymentModule
               type="text"
               name="merchant_code_test"
               value="' . htmlentities(Tools::getValue('merchant_code_test', $this->merchant_code_test), ENT_COMPAT, 'UTF-8') . '"
+               />
+          <br />'
+            .'<label for="curl_path" class="labels">' . $this->l('Curl bin path (usually /usr/bin/curl ):') . '</label>' .
+            '<input
+              id="curl_path"
+              class="gestpay_input"
+              type="text"
+              name="curl_path"
+              value="' . ($this->curl_path ? htmlentities(Tools::getValue('curl_path', $this->curl_path), ENT_COMPAT, 'UTF-8') : '/usr/bin/curl') . '"
                />
           <br />'
             .'<label for="test_mode" class="labels">' . $this->l('Activate Test Mode on Frontend:') . '</label>' .
@@ -780,7 +797,7 @@ class gestpay extends PaymentModule
    */
   public function getGestPayUrl()
   {
-    $url = Configuration::get('GESTPAY_TESTMODE') ? 'https://testecomm.sella.it/gestpay/pagam.asp' : 'https://ecomm.sella.it/gestpay/pagam.asp';
+    $url = Configuration::get('GESTPAY_TESTMODE') ? 'https://testecomm.sella.it/Pagam/Pagam.aspx' : 'https://ecomm.sella.it/Pagam/Pagam.aspx';
     return $url;
   }
 
