@@ -87,7 +87,7 @@
                   "&MerchantLogin={$config['GESTPAY_MERCHANT_CODE_TEST']}".
                   "&LoginUser={$config['GESTPAY_LOGIN_USER_TEST']}".
                   "&Password={$this->blowfish->decrypt($config['GESTPAY_PASSWORD_TEST'])}";
-      // @todo fix empty html in chrome and safari (to be tested on IE)
+      // @todo fix empty html in chrome and safari (to be tested on IE, other problems on firefox)
       echo '<fieldset>
               <legend><img src="../modules/gestpay/AdminGestPay.gif" />'.$this->l('GestPay backend Page').'</legend>
               <p>'.$this->l('Access to GestPay backend without leaving Prestashop').'</p>
@@ -101,8 +101,7 @@
               <legend><img src="../modules/gestpay/AdminGestPay.gif" />'.$this->l('GestPay backend (test mode) Page').'</legend>
               <p>'.$this->l('Access to GestPay backend (test mode) without leaving Prestashop').'</p>
               <iframe
-                sandbox="allow-same-origin allow-forms allow-scripts"
-                
+                sandbox="allow-same-origin allow-forms allow-scripts allow-top-navigation"
                 src="' . $srcTest .'" width="100%" height="600">
               </iframe>
             </fieldset>';

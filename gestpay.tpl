@@ -1,6 +1,6 @@
 <p class="payment_module">
   <a href="javascript:$('#gestpay_form').submit();" title="{l s='Pay with GestPay' mod='GestPay'}">
-    <img src="{$this_path}images/gestpay.png" style="width:100px" alt="GestPay"/>
+    <img src="{$this_path}images/gestpay.gif" style="width:100px" alt="GestPay"/>
     <img src="{$this_path}images/visa.png" style="width:40px" alt="Visa"/>
     <img src="{$this_path}images/mastercard.png" style="width:40px" alt="Mastercard"/>
     <img src="{$this_path}images/amex.png" style="width:40px" alt="American Express"/>

@@ -23,8 +23,8 @@
  * @version 0.4.5
  *
  */
-// TODO implement GestPayCryptHS when SSL is available
-// TODO this class is getting too big. We must start to refactor
+// @todo implement GestPayCryptHS when SSL is available
+// @todo this class is getting too big. We must start to refactor
 include_once(_PS_MODULE_DIR_ . "gestpay/lib/GestPayCrypt/GestPayCrypt.inc.php");
 
 class gestpay extends PaymentModule
@@ -78,12 +78,12 @@ class gestpay extends PaymentModule
     if (isset($config['GESTPAY_ACCOUNT_TYPE']))
       $this->account_type = $config['GESTPAY_ACCOUNT_TYPE'];
     if (isset($config['GESTPAY_CURL_PATH']))
-      $this->curl_path= $config['GESTPAY_CURL_PATH'];
+      $this->curl_path = $config['GESTPAY_CURL_PATH'];
 
     parent::__construct(); /* The parent construct is required for translations */
 
     $this->page = basename(__FILE__, '.php');
-    $this->displayName = $this->l('GestPay Module');
+    $this->displayName = $this->l('GestPay');
     $this->description = $this->l('Accept payments by GestPay');
     $this->confirmUninstall = $this->l('Are you sure you want to delete your details?');
     if (!isset($this->merchant_code) && !isset($this->login_user) && !isset($this->password))
@@ -203,8 +203,8 @@ class gestpay extends PaymentModule
             OR !Configuration::deleteByName('GESTPAY_ACCOUNT_TYPE')
             OR !Configuration::deleteByName('GESTPAY_CURL_PATH')
     )
-
       return false;
+    
     return true;
   }
 
@@ -221,7 +221,6 @@ class gestpay extends PaymentModule
       $tab = new Tab($idTab);
       $tab->delete();
       @unlink(_PS_IMG_DIR_ . 't/' . $tabClass . '.png');
-
       return true;
     }
 
@@ -331,7 +330,7 @@ class gestpay extends PaymentModule
 
   private function _displayGestPay()
   {
-    // TODO better style, remove <br />
+    // @todo better style, remove <br />
     $module_image_path = '../modules/gestpay/images';
     $this->_html .=
             '<b>' . $this->l('This module allows you to accept payments through Banca Sella GestPay.') . '</b><br />
@@ -388,8 +387,8 @@ class gestpay extends PaymentModule
 
   private function _displayForm()
   {
-    // TODO better style for fieldset.
-    // TODO Should we use Smarty for templating?
+    // @todo better style for fieldset.
+    // @todo Should we use Smarty for templating?
     $this->_html .= '<style type="text/css">
         #gestpay_config .labels {
             width: 230px;
@@ -455,17 +454,19 @@ class gestpay extends PaymentModule
               name="merchant_code_test"
               value="' . htmlentities(Tools::getValue('merchant_code_test', $this->merchant_code_test), ENT_COMPAT, 'UTF-8') . '"
                />
-          <br />'
-            .'<label for="curl_path" class="labels">' . $this->l('Curl bin path (usually /usr/bin/curl ):') . '</label>' .
-            '<input
-              id="curl_path"
-              class="gestpay_input"
-              type="text"
-              name="curl_path"
-              value="' . ($this->curl_path ? htmlentities(Tools::getValue('curl_path', $this->curl_path), ENT_COMPAT, 'UTF-8') : '/usr/bin/curl') . '"
-               />
-          <br />'
-            .'<label for="test_mode" class="labels">' . $this->l('Activate Test Mode on Frontend:') . '</label>' .
+          <br />';
+          if(!extension_loaded("curl")) {
+            $this->_html .= '<label for="curl_path" class="labels">' . $this->l('Curl bin path (usually /usr/bin/curl ):') . '</label>' .
+              '<input
+                id="curl_path"
+                class="gestpay_input"
+                type="text"
+                name="curl_path"
+                value="' . ($this->curl_path ? htmlentities(Tools::getValue('curl_path', $this->curl_path), ENT_COMPAT, 'UTF-8') : '/usr/bin/curl') . '"
+                 />
+            <br />';
+          }
+          $this->_html .= '<label for="test_mode" class="labels">' . $this->l('Activate Test Mode on Frontend:') . '</label>' .
             '<input
               id="test_mode"  
               type="checkbox"
@@ -553,7 +554,7 @@ class gestpay extends PaymentModule
         $account_type = 'BASIC';
         break;
     }
-    $gestpay_crypt = new GestPayCrypt();
+    $gestpay_crypt = new GestPayCrypt(FALSE, Configuration::get('GESTPAY_CURL_PATH'));
     $customer = new Customer(intval($cart->id_customer));
     $del_add = new Address(intval($cart->id_address_delivery));
     $del_add_fields = $del_add->getFields();
@@ -564,7 +565,7 @@ class gestpay extends PaymentModule
       $merchant_code = Configuration::get('GESTPAY_MERCHANT_CODE');
     }
 
-    // TODO use the currencies map DB table to map PrestaShop currencies with GestPay currencies
+    // @todo use the currencies map DB table to map PrestaShop currencies with GestPay currencies
     switch ($cookie->id_currency) {
       case 1 :
         $currency = "242"; // Euro
@@ -586,7 +587,7 @@ class gestpay extends PaymentModule
     $customer_firstname = ucfirst(strtolower($del_add_fields['firstname'])) . " " . ucfirst(strtolower($del_add_fields['lastname']));
     $customer_email = $customer->email;
 
-    // TODO use the laguages map DB table to map PrestaShop languages with GestPay languages
+    // @todo use the laguages map DB table to map PrestaShop languages with GestPay languages
     switch (Language::getIsoById(intval($cookie->id_lang))) {
       case 'it' :
         $language = "1"; // Italian
@@ -647,7 +648,7 @@ class gestpay extends PaymentModule
    */
   private function deCrypt($a, $b)
   {
-    $gestpay_decrypt = new GestPayCrypt();
+    $gestpay_decrypt = new GestPayCrypt(FALSE, Configuration::get('GESTPAY_CURL_PATH'));
     $gestpay_decrypt->SetShopLogin($a);
     $gestpay_decrypt->SetEncryptedString($b);
     $gestpay_decrypt->SetDomainName($this->getGestPayDomainName());
