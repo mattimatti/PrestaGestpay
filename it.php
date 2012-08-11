@@ -64,3 +64,7 @@ $_MODULE['<{gestpay}prestashop>payment_return_902b0d55fddef6f8d651fe1035b7d4bd']
 $_MODULE['<{gestpay}prestashop>payment_return_44a5b3b25a25069af35ee1af3343b73a'] = 'Descrizione errore';
 $_MODULE['<{gestpay}prestashop>payment_return_0b3db27bc15f682e92ff250ebb167d4b'] = 'Torna al tuo account';
 $_MODULE['<{gestpay}prestashop>payment_return_8cf04a9734132302f96da8e113e80ce5'] = 'Home';
+$_MODULE['<{gestpay}prestashop>tab_a7e7bf0670678ada030bd6bf273a7fa4'] = 'Pagina di backend GestPay';
+$_MODULE['<{gestpay}prestashop>tab_9b3b6fce73fdd1ee03bd676fa6cf1e3d'] = 'Accedi alla pagina di backend di GestPay senza lasciare Prestashop';
+$_MODULE['<{gestpay}prestashop>tab_f182b7a4b6fa2d1b5da683545a7b3ac1'] = 'Pagina di backend GestPay (modalità di test)';
+$_MODULE['<{gestpay}prestashop>tab_57249a972eeace4c00479e3540870c21'] = 'Accedi alla pagina di backend di GestPay (modalità di test) senza lasciare Prestashop';
