@@ -10,6 +10,9 @@
     .donation {
         font-weight: bold;
     }
+    .module_help {
+        margin-bottom: 35px;
+    }
 </style>
 <p class="donation">{l s='If you like this module please consider a donation:' mod='GestPay'}</p>
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
@@ -19,9 +22,9 @@
   <img alt="" border="0" src="https://www.paypalobjects.com/it_IT/i/scr/pixel.gif" width="1" height="1">
 </form>
 <br /><br />
-{l s='Visit our website:' mod='GestPay'} <a href="http://www.yameveo.com" target="_blank" style="color:blue;font-weight:bold">http://www.yameveo.com</a><br /><br />
-{l s='If the customer chooses this payment mode, the order will change its status once a positive confirmation is recieved from GestPay server' mod='GestPay'}
-<br /><br /><br />
+<p>{l s='Visit our website:' mod='GestPay'} <a href="http://www.yameveo.com" target="_blank" style="color:blue;font-weight:bold">http://www.yameveo.com</a></p>
+<p class="module_help">{l s='If the customer chooses this payment mode, the order will change its status once a positive confirmation is recieved from GestPay server' mod='GestPay'}</p>
+
 <form action="{$formAction}" method="POST">
     <fieldset id="gestpay_config">
       <legend><img src="../img/admin/contact.gif" /> {l s='Account details' mod='GestPay'}</legend>
@@ -32,7 +35,7 @@
           class="gestpay_input"
           type="text"
           name="login_user"
-          value="{$loginUser}"/>
+          value="{$loginUser}" />
       <br />
         <label for="password" class="labels">{l s='Password:' mod='GestPay'} </label>
         <input
@@ -49,24 +52,22 @@
           type="text"
           name="merchant_code"
           value="{$merchantCode}" />
-      <br />
+        <br />
         <label for="login_user_test" class="labels"> {l s='Login User for Test Mode:' mod='GestPay'} </label>
         <input
           id="login_user_test"
           class="gestpay_input"
           type="text"
           name="login_user_test"
-          value="{$loginUserTest}"
-           />
-      <br />
+          value="{$loginUserTest}" />
+        <br />
         <label for="password_test" class="labels"> {l s='Password for Test Mode:' mod='GestPay'} </label>
         <input
           id="password_test"
           class="gestpay_input"
           type="password"
           name="password_test"
-          value="{$passwordTest}"
-           />
+          value="{$passwordTest}" />
        <br />
         <label for="merchant_code_test" class="labels"> {l s='Merchant Code for Test Mode:' mod='GestPay'} </label>
         <input
@@ -74,8 +75,7 @@
           class="gestpay_input"
           type="text"
           name="merchant_code_test"
-          value="{$merchantCodeTest}"
-           />
+          value="{$merchantCodeTest}" />
       <br />
       {if !$extensionCurl eq '1'}
       <label for="curl_path" class="labels"> {l s='Curl bin path (usually /usr/bin/curl ):' mod='GestPay'} </label>
@@ -84,8 +84,7 @@
             class="gestpay_input"
             type="text"
             name="curl_path"
-            value="{$curl_path}"
-             />
+            value="{$curl_path}" />
         <br />
        {/if} 
        <label for="test_mode" class="labels"> {l s='Activate Test Mode on Frontend:' mod='GestPay'} </label>
