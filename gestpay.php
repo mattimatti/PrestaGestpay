@@ -386,7 +386,6 @@ class gestpay extends PaymentModule
 
   private function _displayForm()
   {
-    // @todo better style for fieldset.
     // @todo Should we use Smarty for templating?
     $this->_html .= '<style type="text/css">
         #gestpay_config .labels {
@@ -665,6 +664,7 @@ class gestpay extends PaymentModule
    */
   private function convertToCurrencySymbol($currency_code)
   {
+    
     switch ($currency_code) {
       case 242 :
         $symbol = "&euro;"; // Euro

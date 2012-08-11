@@ -470,43 +470,43 @@ class GestPayCrypt
     foreach ($keyval as $tagPAY1) {
       $tagPAY1val = explode("=", $tagPAY1);
 
-      if (ereg("^PAY1_UICCODE", $tagPAY1)) {
+      if (preg_match("/^PAY1_UICCODE/", $tagPAY1)) {
         $this->Currency = $tagPAY1val[1];
-      } elseif (ereg("^PAY1_AMOUNT", $tagPAY1)) {
+      } elseif (preg_match("/^PAY1_AMOUNT/", $tagPAY1)) {
         $this->Amount = $tagPAY1val[1];
-      } elseif (ereg("^PAY1_SHOPTRANSACTIONID", $tagPAY1)) {
+      } elseif (preg_match("/^PAY1_SHOPTRANSACTIONID/", $tagPAY1)) {
         $this->ShopTransactionID = $tagPAY1val[1];
-      } elseif (ereg("^PAY1_CHNAME", $tagPAY1)) {
+      } elseif (preg_match("/^PAY1_CHNAME/", $tagPAY1)) {
         $this->BuyerName = $tagPAY1val[1];
-      } elseif (ereg("^PAY1_CHEMAIL", $tagPAY1)) {
+      } elseif (preg_match("/^PAY1_CHEMAIL/", $tagPAY1)) {
         $this->BuyerEmail = $tagPAY1val[1];
-      } elseif (ereg("^PAY1_AUTHORIZATIONCODE", $tagPAY1)) {
+      } elseif (preg_match("/^PAY1_AUTHORIZATIONCODE/", $tagPAY1)) {
         $this->AuthorizationCode = $tagPAY1val[1];
-      } elseif (ereg("^PAY1_ERRORCODE", $tagPAY1)) {
+      } elseif (preg_match("/^PAY1_ERRORCODE/", $tagPAY1)) {
         $this->ErrorCode = $tagPAY1val[1];
-      } elseif (ereg("^PAY1_ERRORDESCRIPTION", $tagPAY1)) {
+      } elseif (preg_match("/^PAY1_ERRORDESCRIPTION/", $tagPAY1)) {
         $this->ErrorDescription = $tagPAY1val[1];
-      } elseif (ereg("^PAY1_BANKTRANSACTIONID", $tagPAY1)) {
+      } elseif (preg_match("/^PAY1_BANKTRANSACTIONID/", $tagPAY1)) {
         $this->BankTransactionID = $tagPAY1val[1];
-      } elseif (ereg("^PAY1_ALERTCODE", $tagPAY1)) {
+      } elseif (preg_match("/^PAY1_ALERTCODE/", $tagPAY1)) {
         $this->AlertCode = $tagPAY1val[1];
-      } elseif (ereg("^PAY1_ALERTDESCRIPTION", $tagPAY1)) {
+      } elseif (preg_match("/^PAY1_ALERTDESCRIPTION/", $tagPAY1)) {
         $this->AlertDescription = $tagPAY1val[1];
-      } elseif (ereg("^PAY1_CARDNUMBER", $tagPAY1)) {
+      } elseif (preg_match("/^PAY1_CARDNUMBER/", $tagPAY1)) {
         $this->CardNumber = $tagPAY1val[1];
-      } elseif (ereg("^PAY1_EXPMONTH", $tagPAY1)) {
+      } elseif (preg_match("/^PAY1_EXPMONTH/", $tagPAY1)) {
         $this->ExpMonth = $tagPAY1val[1];
-      } elseif (ereg("^PAY1_EXPYEAR", $tagPAY1)) {
+      } elseif (preg_match("/^PAY1_EXPYEAR/", $tagPAY1)) {
         $this->ExpYear = $tagPAY1val[1];
-      } elseif (ereg("^PAY1_COUNTRY", $tagPAY1)) {
+      } elseif (preg_match("/^PAY1_COUNTRY/", $tagPAY1)) {
         $this->ExpYear = $tagPAY1val[1];
-      } elseif (ereg("^PAY1_VBVRISP", $tagPAY1)) {
+      } elseif (preg_match("/^PAY1_VBVRISP/", $tagPAY1)) {
         $this->ExpYear = $tagPAY1val[1];
-      } elseif (ereg("^PAY1_VBV", $tagPAY1)) {
+      } elseif (preg_match("/^PAY1_VBV/", $tagPAY1)) {
         $this->ExpYear = $tagPAY1val[1];
-      } elseif (ereg("^PAY1_IDLANGUAGE", $tagPAY1)) {
+      } elseif (preg_match("/^PAY1_IDLANGUAGE/", $tagPAY1)) {
         $this->Language = $tagPAY1val[1];
-      } elseif (ereg("^PAY1_TRANSACTIONRESULT", $tagPAY1)) {
+      } elseif (preg_match("/^PAY1_TRANSACTIONRESULT/", $tagPAY1)) {
         $this->TransactionResult = $tagPAY1val[1];
       } else {
         $this->CustomInfo .= $tagPAY1 . $this->separator;

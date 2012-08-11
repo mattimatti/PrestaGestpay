@@ -1,5 +1,7 @@
 0.5.1
 * Refactoring of GestPayCrypt library
+* Use GestPayCryptHS (high security) instead of GestPayCrypt
+* Update deprecated methods in GestPayCrypt (ereg to preg_match)
 
 ---
 0.5
