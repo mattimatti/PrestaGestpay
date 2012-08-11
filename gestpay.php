@@ -165,7 +165,14 @@ class gestpay extends PaymentModule
 
     return false;
   }
-
+  
+  /**
+   * Install the GestPay tab in the payment section of Prestashop backend
+   * @param String $tabClass
+   * @param String $tabName
+   * @param Payment tab id $idTabParent
+   * @return boolean true if it's installed correctly
+   */
   private function installModuleTab($tabClass, $tabName, $idTabParent)
   {
     @copy(_PS_MODULE_DIR_ . $this->name . '/images/logo.png', _PS_IMG_DIR_ . 't/' . $tabClass . '.png');
@@ -210,6 +217,7 @@ class gestpay extends PaymentModule
   /**
    * Support function to remove the GestPay admin tab
    *
+   * @param String $tabClass
    * @return boolean true if everything went fine
    *
    */
@@ -327,187 +335,9 @@ class gestpay extends PaymentModule
     $this->_html .= '<div class="conf confirm"><img src="../img/admin/ok.gif" alt="' . $this->l('ok') . '" /> ' . $this->l('Settings updated') . '</div>';
   }
 
-  private function _displayGestPay()
-  {
-    // @todo better style, remove <br /> - use prestashop function to determine module images path
-    $module_image_path = _PS_MODULE_DIR_.'gestpay/images';
-    $this->_html .=
-            '<b>' . $this->l('This module allows you to accept payments through Banca Sella GestPay.') . '</b><br />
-      <img src="' . $module_image_path . '/visa.png" style="margin-right:10px" />
-      <img src="' . $module_image_path . '/mastercard.png" style="margin-right:10px" />
-      <img src="' . $module_image_path . '/amex.png" style="margin-right:10px" />
-      <img src="' . $module_image_path . '/jcb.png" style="margin-right:10px" />
-      <img src="' . $module_image_path . '/aura.png" style="margin-right:10px" />
-      <img src="' . $module_image_path . '/gestpay.gif" style="margin-right:10px" />
-      <br /><br />
-      <b>' . $this->l('If you like this module please consider a donation') . '</b><br />
-      <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-        <input type="hidden" name="cmd" value="_s-xclick">
-        <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----MIIHLwYJKoZIhvcNAQcEoIIHIDCCBxwCAQExggEwMI' .
-            'IBLAIBADCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQ' .
-            'YWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb2' .
-            '0CAQAwDQYJKoZIhvcNAQEBBQAEgYB48ZkGLt/FNYMMngNZDTiASU6gpl/n36e8hO1HF8cqfM4TdCC3jhO+3GP7hnCMt4jMxx+emMGR8' .
-            'MZXy8e/q4VRlOXdrcjJISXRx5FLSiTJvTG+s8jzcqBo5FKzXKrKdQXxLUM3Xor+gtOPfzMVBTUxzsBCxBguCkWX4JMTSc76qDELMAkGB' .
-            'SsOAwIaBQAwgawGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQIdmbYYohhtPeAgYgUld9MB3qC30kO9RRiwWK/4ZUkCBun25KgU5IMqwfA' .
-            'ahgICGuskyScMZOpC8mjtSqSJg6VQuzygpbYnrYfI2bAvnguDqZvo+zK1WQCUQn/OJOmn7tX79NgWEuzR+aQUckZ5Y1oKHIG/Qg7v9TB' .
-            'JaQgJtxPG7HCaFQK78yWf7J5ICoBRwMiq5NwoIIDhzCCA4MwggLsoAMCAQICAQAwDQYJKoZIhvcNAQEFBQAwgY4xCzAJBgNVBAYTAlVTM' .
-            'QswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHM' .
-            'xETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tMB4XDTA0MDIxMzEwMTMxNVoXDTM1MDIxMzEwMTMxN' .
-            'VowgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzAR' .
-            'BgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tMIGfMA0GCSqGSIb3DQ' .
-            'EBAQUAA4GNADCBiQKBgQDBR07d/ETMS1ycjtkpkvjXZe9k+6CieLuLsPumsJ7QC1odNz3sJiCbs2wC0nLE0uLGaEtXynIgRqIddYCHx88pb' .
-            '5HTXv4SZeuv0Rqq4+axW9PLAAATU8w04qqjaSXgbGLP3NmohqM6bV9kZZwZLR/klDaQGo1u9uDb9lr4Yn+rBQIDAQABo4HuMIHrMB0GA' .
-            '1UdDgQWBBSWn3y7xm8XvVk/UtcKG+wQ1mSUazCBuwYDVR0jBIGzMIGwgBSWn3y7xm8XvVk/UtcKG+wQ1mSUa6GBlKSBkTCBjjELMAkGA1' .
-            'UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbG' .
-            'l2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb22CAQAwDAYDVR0TBAUwAwEB/zA' .
-            'NBgkqhkiG9w0BAQUFAAOBgQCBXzpWmoBa5e9fo6ujionW1hUhPkOBakTr3YCDjbYfvJEiv/2P+IobhOGJr85+XHhN0v4gUkEDI8r2' .
-            '/rNk1m0GA8HKddvTjyGw/XqXa+LSTlDYkqI8OwR8GEYj4efEtcRpRYBxV8KxAW93YDWzFGvruKnnLbDAF6VR5w/cCMn5hzGCAZowg' .
-            'gGWAgEBMIGUMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVB' .
-            'hbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvb' .
-            'QIBADAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMDkxMjE1MTUzNjAwWjAjBgkq' .
-            'hkiG9w0BCQQxFgQUmAzWH2DZgHa2DYi8c2ZJVUpIpgswDQYJKoZIhvcNAQEBBQAEgYAuYq5rEidpHJxBeIzLUl3NzRjz/p4wvN8dLef' .
-            'qGvkhqT5ufivmjdD3s/CsdseY9fmlf19aU0OBehahI68mBp5anVFHy1F39ChDufWNOZJW2aSWHAijFYSgN31/j/SxmEkKe/ko9oW0GBEW' .
-            '9+v8u9bSxKqOt8Q05dy/6svyNlSgMg==-----END PKCS7-----
-        ">
-        <input
-          type="image"
-          src="https://www.paypal.com/it_IT/IT/i/btn/btn_donateCC_LG.gif"
-          border="0"
-          name="submit"
-          alt="PayPal - Il sistema di pagamento online più facile e sicuro!"
-        >
-        <img alt="" border="0" src="https://www.paypal.com/it_IT/i/scr/pixel.gif" width="1" height="1">
-      </form>
-
-      <br /><br />
-      ' . $this->l('If the customer chooses this payment mode, the order will change its status once a positive confirmation is recieved from GestPay server') .
-            '<br /><br /><br />';
-  }
-
-  private function _displayForm()
-  {
-    // @todo Should we use Smarty for templating?
-    $this->_html .= '<style type="text/css">
-        #gestpay_config .labels {
-            width: 230px;
-        }
-        #gestpay_config .gestpay_input {
-            width: 300px; 
-            margin-bottom: 15px; 
-            margin-left: 15px
-        }
-        </style>';
-    $this->_html .=
-            '<form action="' . $_SERVER['REQUEST_URI'] . '" method="POST">
-        <fieldset id="gestpay_config">
-          <legend><img src="../img/admin/contact.gif" />' . $this->l('Account details') . '</legend>'.
-            '<h3>'. $this->l('Specify your GestPay account details') .'</h3>'.
-            '<label for="login_user" class="labels">' . $this->l('Login User:') . '</label>' .
-            '<input
-              id="login_user"
-              class="gestpay_input"
-              type="text"
-              name="login_user"
-              value="' . htmlentities(Tools::getValue('login_user', $this->login_user), ENT_COMPAT, 'UTF-8') . '"/>
-          <br />'
-            .'<label for="password" class="labels">'. $this->l('Password:') . '</label>' .
-            '<input
-              id="password"
-              class="gestpay_input"
-              type="password"
-              name="password"
-              value="' . htmlentities(Tools::getValue('password', $this->password), ENT_COMPAT, 'UTF-8') . '" />
-           <br />'
-            .'<label for="merchant_code" class="labels">' . $this->l('Merchant Code:') . '</label>' .
-            '<input
-              id="merchant_code"
-              class="gestpay_input"
-              type="text"
-              name="merchant_code"
-              value="' . htmlentities(Tools::getValue('merchant_code', $this->merchant_code), ENT_COMPAT, 'UTF-8') . '" />
-          <br />'
-            .'<label for="login_user_test" class="labels">' . $this->l('Login User for Test Mode:') . '</label>' .
-            '<input
-              id="login_user_test"
-              class="gestpay_input"
-              type="text"
-              name="login_user_test"
-              value="' . htmlentities(Tools::getValue('login_user_test', $this->login_user_test), ENT_COMPAT, 'UTF-8') . '"
-               />
-          <br />'
-            .'<label for="password_test" class="labels">' . $this->l('Password for Test Mode:') . '</label>' .
-            '<input
-              id="password_test"
-              class="gestpay_input"
-              type="password"
-              name="password_test"
-              value="' . htmlentities(Tools::getValue('password_test', $this->password_test), ENT_COMPAT, 'UTF-8') . '"
-               />
-           <br />'
-            .'<label for="merchant_code_test" class="labels">' . $this->l('Merchant Code for Test Mode:') . '</label>' .
-            '<input
-              id="merchant_code_test"
-              class="gestpay_input"
-              type="text"
-              name="merchant_code_test"
-              value="' . htmlentities(Tools::getValue('merchant_code_test', $this->merchant_code_test), ENT_COMPAT, 'UTF-8') . '"
-               />
-          <br />';
-          if(!extension_loaded("curl")) {
-            $this->_html .= '<label for="curl_path" class="labels">' . $this->l('Curl bin path (usually /usr/bin/curl ):') . '</label>' .
-              '<input
-                id="curl_path"
-                class="gestpay_input"
-                type="text"
-                name="curl_path"
-                value="' . ($this->curl_path ? htmlentities(Tools::getValue('curl_path', $this->curl_path), ENT_COMPAT, 'UTF-8') : '/usr/bin/curl') . '"
-                 />
-            <br />';
-          }
-          $this->_html .= '<label for="test_mode" class="labels">' . $this->l('Activate Test Mode on Frontend:') . '</label>' .
-            '<input
-              id="test_mode"  
-              type="checkbox"
-              name="test_mode"
-              value="1"
-              style="width: 300px; margin-top: 10px; margin-left: 15px" ' .
-              (Configuration::get('GESTPAY_TESTMODE') == '1' ? 'checked="checked"' : '') . '/>
-          <br /><br />'
-            . '<p>' . $this->l('Choose your account type:'). '</p><br />'.
-          '<label for="basic" style="width: 100px; margin-top:-3px">BASIC</label><input
-              id="basic"
-              type="radio"
-              name="account_type"
-              value="0"' .
-            ($this->account_type == 0 ? 'checked' : '') . '
-              style="width: 20px; margin-bottom: 15px" /><br />
-           <label for="advanced" style="width: 100px; margin-top:-3px">ADVANCED</label><input
-              id="advanced"
-              type="radio"
-              name="account_type"
-              value="1"' .
-            ($this->account_type == 1 ? 'checked' : '') . '
-              style="width: 20px; margin-bottom: 15px" /><br />
-           <label for="professional" style="width: 100px; margin-top:-3px">PROFESSIONAL</label><input
-              id="professional"
-              type="radio"
-              name="account_type"
-              value="2"' .
-            ($this->account_type == 2 ? 'checked' : '') . '
-              style="width: 20px;  margin-bottom: 15px" />
-          <br />' .
-            '<input
-              class="button"
-              name="btnSubmit"
-              value="' . $this->l('Update settings') . '"
-              type="submit"
-              style="margin-top: 10px" />
-        </fieldset>
-      </form>';
-  }
-
   public function getContent()
   {
+    global $smarty;
     $this->_html = '<h2>' . $this->displayName . '</h2>';
     if (!empty($_POST)) {
       $this->_postValidation();
@@ -519,9 +349,19 @@ class gestpay extends PaymentModule
     } else
       $this->_html .= '<br />';
 
-    $this->_displayGestPay();
-    $this->_displayForm();
-
+    $smarty->assign(array(
+        'formAction' => $_SERVER['REQUEST_URI'],
+        'loginUser' => htmlentities(Tools::getValue('login_user', $this->login_user), ENT_COMPAT, 'UTF-8'),
+        'password' => htmlentities(Tools::getValue('password', $this->password), ENT_COMPAT, 'UTF-8'),
+        'merchantCode' => htmlentities(Tools::getValue('merchant_code', $this->merchant_code_test), ENT_COMPAT, 'UTF-8'),
+        'loginUserTest' => htmlentities(Tools::getValue('login_user_test', $this->login_user_test), ENT_COMPAT, 'UTF-8'),
+        'passwordTest' => htmlentities(Tools::getValue('password_test', $this->password_test), ENT_COMPAT, 'UTF-8'),
+        'merchantCodeTest' => htmlentities(Tools::getValue('merchant_code_test', $this->merchant_code_test), ENT_COMPAT, 'UTF-8'),
+        'testMode' => Configuration::get('GESTPAY_TESTMODE'),
+        'accountType' => $this->account_type,
+        'extensionCurl' => extension_loaded("curl")
+    ));
+    $this->_html .= $this->display(__FILE__, 'config_form.tpl');
     return $this->_html;
   }
 

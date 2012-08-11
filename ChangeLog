@@ -2,6 +2,7 @@
 * Refactoring of GestPayCrypt library
 * Use GestPayCryptHS (high security) instead of GestPayCrypt
 * Update deprecated methods in GestPayCrypt (ereg to preg_match)
+* Use smarty in backend configuration form (much cleaner and decoupled gestpay class)
 
 ---
 0.5
