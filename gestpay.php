@@ -23,9 +23,8 @@
  * @version 0.5.1
  *
  */
-// @todo implement GestPayCryptHS when SSL is available
 // @todo this class is getting too big. We must start to refactor
-include_once(_PS_MODULE_DIR_ . "gestpay/lib/GestPayCrypt/GestPayCrypt.php");
+include_once(_PS_MODULE_DIR_ . "gestpay/lib/GestPayCrypt/GestPayCryptHS.php");
 define('TAB_CLASS', 'AdminGestPay');
 class gestpay extends PaymentModule
 {
@@ -35,7 +34,7 @@ class gestpay extends PaymentModule
   public $owner;
   public $address;
   public $tabClass;
-  
+  public $debug;
   /**
    * Constructor for the class GestPay
    *
@@ -49,7 +48,7 @@ class gestpay extends PaymentModule
     $this->currencies_mode = 'checkbox';
     $this->version = '0.5.1';
     $this->author = 'Yameveo';
-            
+    $this->debug = false;
     $config = Configuration::getMultiple(
                     array(
                         'GESTPAY_LOGIN_USER',
@@ -331,7 +330,7 @@ class gestpay extends PaymentModule
   private function _displayGestPay()
   {
     // @todo better style, remove <br /> - use prestashop function to determine module images path
-    $module_image_path = '../modules/gestpay/images';
+    $module_image_path = _PS_MODULE_DIR_.'gestpay/images';
     $this->_html .=
             '<b>' . $this->l('This module allows you to accept payments through Banca Sella GestPay.') . '</b><br />
       <img src="' . $module_image_path . '/visa.png" style="margin-right:10px" />
@@ -554,7 +553,7 @@ class gestpay extends PaymentModule
         $account_type = 'BASIC';
         break;
     }
-    $gestpay_crypt = new GestPayCrypt(FALSE, Configuration::get('GESTPAY_CURL_PATH'));
+    $gestpay_crypt = new GestPayCryptHS($this->debug, Configuration::get('GESTPAY_CURL_PATH'));
     $customer = new Customer(intval($cart->id_customer));
     $del_add = new Address(intval($cart->id_address_delivery));
     $del_add_fields = $del_add->getFields();
@@ -648,7 +647,7 @@ class gestpay extends PaymentModule
    */
   private function deCrypt($a, $b)
   {
-    $gestpay_decrypt = new GestPayCrypt(FALSE, Configuration::get('GESTPAY_CURL_PATH'));
+    $gestpay_decrypt = new GestPayCryptHS($this->debug, Configuration::get('GESTPAY_CURL_PATH'));
     $gestpay_decrypt->SetShopLogin($a);
     $gestpay_decrypt->SetEncryptedString($b);
     $gestpay_decrypt->SetDomainName($this->getGestPayDomainName());

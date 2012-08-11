@@ -35,8 +35,8 @@
     {
       $this->blowfish = new Blowfish(_COOKIE_KEY_, _COOKIE_IV_);
 
-      // TODO Use DB tables to set language.
-      // TODO Should we use Smarty for templating?
+      // @todo Use DB tables to set language.
+      // @todo Should we use Smarty for templating?
       switch (Tools::getValue('id_lang')) {
         case 1 :
           $lang = 2;
