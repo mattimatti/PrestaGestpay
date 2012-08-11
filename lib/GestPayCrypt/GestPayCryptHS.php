@@ -25,12 +25,12 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
  */
-require_once 'GestPayCrypt.php';
+require_once('GestPayCrypt.php');
 
 class GestPayCryptHS extends GestPayCrypt
 {
   // Constructor
-  public function GestPayCryptHS($debug = false, $curlPath = "/usr/bin/curl")
+  public function __construct($debug = false, $curlPath = "/usr/bin/curl")
   {
     $this->ShopLogin = "";
     $this->Currency = "";

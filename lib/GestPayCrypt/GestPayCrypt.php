@@ -64,9 +64,8 @@ class GestPayCrypt
   
   public $debug;
   public $curlPath;
-
-  public function GestPayCrypt($debug = false, $curlPath = "/usr/bin/curl")
-  {
+  
+  public function __construct($debug = false, $curlPath = "/usr/bin/curl") {
     $this->ShopLogin = "";
     $this->Currency = "";
     $this->Amount = "";
