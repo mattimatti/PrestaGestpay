@@ -7,7 +7,7 @@
       sandbox="allow-forms allow-same-origin allow-scripts"
       src="{$src}" width="100%" height="600">
     </iframe>
-</fieldset>';
+</fieldset>
 <br />
 <fieldset>
     <legend><img src="../modules/gestpay/AdminGestPay.gif" />{l s='GestPay backend (test mode) Page' mod='GestPay'}</legend>

@@ -2,12 +2,6 @@
 
 global $_MODULE;
 $_MODULE = array();
-$_MODULE['<{gestpay}prestashop>admingestpay_bc3607b0f91eeea0692ac9c0cd8e9c41'] = 'Se ti piace questo modulo per piacere considera una donazione';
-$_MODULE['<{gestpay}prestashop>admingestpay_a7e7bf0670678ada030bd6bf273a7fa4'] = 'Pagina di backend di GestPay';
-$_MODULE['<{gestpay}prestashop>admingestpay_9b3b6fce73fdd1ee03bd676fa6cf1e3d'] = 'Accedi al backend di GestPay senza lasciare Prestashop';
-$_MODULE['<{gestpay}prestashop>admingestpay_f182b7a4b6fa2d1b5da683545a7b3ac1'] = 'Pagina di backend (modalità di test) di GestPay';
-$_MODULE['<{gestpay}prestashop>admingestpay_57249a972eeace4c00479e3540870c21'] = 'Accedi al backend di GestPay (modalità di test) senza lasciare Prestashop';
-$_MODULE['<{gestpay}prestashop>config_form_dc0aecef7c49561d207b6923eefd8195'] = 'Se ti piace questo modulo per piacere considera una donazione:';
 $_MODULE['<{gestpay}prestashop>config_form_b09658c8f47c0872f378c0e1a2f59587'] = 'Visita il nostro sito internet:';
 $_MODULE['<{gestpay}prestashop>config_form_1f90d983e0237302520fdda56f766573'] = 'Se il cliente sceglie questo metodo di pagamento, l\'ordine cambierà il suo stato una volta che il server GestPay conferma positivamente la transazione';
 $_MODULE['<{gestpay}prestashop>config_form_8bc212f48680748479bbd322d4d73d3f'] = 'Dettagli dell\'account';
@@ -22,6 +16,7 @@ $_MODULE['<{gestpay}prestashop>config_form_887aa39705cb8acde16321199b177b75'] = 
 $_MODULE['<{gestpay}prestashop>config_form_6da53d930912edcb7c8a1662e8629b83'] = 'Attiva la modalità di test nel frontend';
 $_MODULE['<{gestpay}prestashop>config_form_66aa1b53af4d60e646b54925c346fcac'] = 'Scegli il tipo di account';
 $_MODULE['<{gestpay}prestashop>config_form_b17f3f4dcf653a5776792498a9b44d6a'] = 'Aggiorna le impostazioni';
+$_MODULE['<{gestpay}prestashop>donation_dc0aecef7c49561d207b6923eefd8195'] = 'Se ti piace questo modulo per piacere considera una donazione:';
 $_MODULE['<{gestpay}prestashop>gestpay_5df247fbb6fd602d99c8c49df7847544'] = 'GestPay';
 $_MODULE['<{gestpay}prestashop>gestpay_60901c6442233fd136f7cb3a04e27dfe'] = 'Accetta i pagamenti attraverso GestPay';
 $_MODULE['<{gestpay}prestashop>gestpay_69a1a3ad8dd5da6db3c4da838a0cf9c7'] = 'Sei sicuro di voler eliminare i tuoi dettagli?';
