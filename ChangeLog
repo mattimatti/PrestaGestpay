@@ -1,3 +1,7 @@
+0.5.1
+* Refactoring of GestPayCrypt library
+
+---
 0.5
 * Fixed link in payment page
 * Some refactoring 

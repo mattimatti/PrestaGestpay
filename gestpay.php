@@ -20,7 +20,7 @@
  *
  * @author Andrea De Pirro <andrea.depirro@yameveo.com>, Enrico Aillaud <enrico.aillaud@yameveo.com>
  * @copyright Andrea De Pirro & Enrico Aillaud
- * @version 0.5
+ * @version 0.5.1
  *
  */
 // @todo implement GestPayCryptHS when SSL is available
@@ -45,12 +45,11 @@ class gestpay extends PaymentModule
     $this->blowfish = new Blowfish(_COOKIE_KEY_, _COOKIE_IV_);
     $this->name = 'gestpay';
     $this->tab = 'payments_gateways';
-
-    $this->version = 0.5;
-    $this->author = 'Yameveo';
     $this->currencies = true;
     $this->currencies_mode = 'checkbox';
-
+    $this->version = '0.5.1';
+    $this->author = 'Yameveo';
+            
     $config = Configuration::getMultiple(
                     array(
                         'GESTPAY_LOGIN_USER',
@@ -331,7 +330,7 @@ class gestpay extends PaymentModule
 
   private function _displayGestPay()
   {
-    // @todo better style, remove <br />
+    // @todo better style, remove <br /> - use prestashop function to determine module images path
     $module_image_path = '../modules/gestpay/images';
     $this->_html .=
             '<b>' . $this->l('This module allows you to accept payments through Banca Sella GestPay.') . '</b><br />
