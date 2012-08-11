@@ -3,6 +3,8 @@
 * Use GestPayCryptHS (high security) instead of GestPayCrypt
 * Update deprecated methods in GestPayCrypt (ereg to preg_match)
 * Use smarty in backend configuration form (much cleaner and decoupled gestpay class)
+* Moved code from AdminGestPay to Smarty template
+* Smarty template refactoring
 
 ---
 0.5
