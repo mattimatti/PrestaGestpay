@@ -2,7 +2,7 @@
 <module>
     <name><![CDATA[gestpay]]></name>
     <displayName><![CDATA[GestPay Banca Sella]]></displayName>
-    <version><![CDATA[0.5.1]]></version>
+    <version><![CDATA[0.6]]></version>
     <author><![CDATA[Yameveo]]></author>
     <description><![CDATA[Accept payments by Banca Sella gateway]]></description>
     <tab><![CDATA[payments_gateways]]></tab>

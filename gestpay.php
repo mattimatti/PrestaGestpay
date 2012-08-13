@@ -46,7 +46,7 @@ class gestpay extends PaymentModule
     $this->tab = 'payments_gateways';
     $this->currencies = true;
     $this->currencies_mode = 'checkbox';
-    $this->version = '0.5.1';
+    $this->version = '0.6';
     $this->author = 'Yameveo';
     $this->debug = false;
     $config = Configuration::getMultiple(
