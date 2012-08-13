@@ -495,81 +495,6 @@ class gestpay extends PaymentModule
     return $gestpay_decrypt;
   }
 
-//  /**
-//   * Converts GestPay code to identify currency in the correct symbol
-//   *
-//   * @param string
-//   * @todo use the prestashop native Currency object
-//   * @return string containg the html entity for the currency
-//   */
-//  private function convertToCurrencySymbol($currency_code)
-//  {
-//    
-//    switch ($currency_code) {
-//      case 242 :
-//        $symbol = "&euro;"; // Euro
-//        break;
-//      case 2 :
-//        $symbol = "&#36;"; // Dollars
-//        break;
-//      case 3 :
-//        $symbol = "&pound;"; // Pounds
-//        break;
-//      default :
-//        $symbol = "&euro;"; // Default currency is Euro
-//        break;
-//    }
-//
-//    return $symbol;
-//  }
-
-//  /**
-//   * Validates payment decrypting 'a' and 'b' parameters and storing the
-//   * result of the transaction on DB
-//   *
-//   * @global Smarty $smarty
-//   * @global Cookie $cookie
-//   * @param string $a contains shop login
-//   * @param string $b contains encrypted transaction data
-//   * @return string page to be displayed after validation
-//   *
-//   */
-//  public function validatePayment($a, $b)
-//  {
-//    global $smarty;
-//
-//    $gestpay_decrypt = $this->deCrypt($a, $b);
-//
-////    $shop_login = trim($gestpay_decrypt->GetShopLogin());
-//    $currency = $this->convertToCurrencySymbol($gestpay_decrypt->GetCurrency());
-//    $amount = floatval($gestpay_decrypt->GetAmount());
-//    $shop_transaction_id = trim($gestpay_decrypt->GetShopTransactionID());
-//    $buyer_name = preg_replace('#[\W]#', ' ', trim($gestpay_decrypt->GetBuyerName()));
-////    $buyer_email = trim($gestpay_decrypt->GetBuyerEmail());
-//    $transaction_result = trim($gestpay_decrypt->GetTransactionResult());
-////    $authorization_code = trim($gestpay_decrypt->GetAuthorizationCode());
-//    $error_code = trim($gestpay_decrypt->GetErrorCode());
-//    $error_description = trim($gestpay_decrypt->GetErrorDescription());
-////    $error_bank_transaction_id = trim($gestpay_decrypt->GetBankTransactionID());
-////    $alert_code = trim($gestpay_decrypt->GetAlertCode());
-////    $alert_description = trim($gestpay_decrypt->GetAlertDescription());
-////    $custom_info = trim($gestpay_decrypt->GetCustomInfo());
-//
-//    $this->validateOrder($shop_transaction_id, ($transaction_result == 'OK' ? _PS_OS_PAYMENT_ : _PS_OS_ERROR_), $amount, 'GestPay');
-//
-//    $smarty->assign(array(
-//        'currency' => $currency,
-//        'amount' => $amount,
-//        'shop_transaction_id' => $shop_transaction_id,
-//        'buyer_name' => $buyer_name,
-//        'transaction_result' => $transaction_result,
-//        'error_code' => $error_code,
-//        'error_description' => $error_description,
-//    ));
-//
-//    return $this->display(__FILE__, 'payment_return.tpl');
-//  }
-
   /**
    * Builds the form to be sent to GestPay gateway
    *
@@ -599,6 +524,12 @@ class gestpay extends PaymentModule
     return $this->display(__FILE__, 'payment_execution.tpl');
   }
 
+  /**
+   * 
+   * @global  $smarty
+   * @param type $params
+   * @return type
+   */
   public function hookPayment($params)
   {
     if (!$this->active)
