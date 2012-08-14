@@ -1,6 +1,11 @@
 GestPay Module for Prestashop
 
-Questo modulo funziona esclusivamente con architettura Crittografia (OTP e S2S non sono supportati)
+Questo modulo funziona esclusivamente con architettura Crittografia (OTP non è supportato)
+Se si intende utilizzare una connessione sicura HTTPS è necessario soddisfare almeno uno dei seguenti requisiti:
+
+Versione di PHP > 4.3.0 e supporto estensione OpenSSL
+PHP con supporto CURL
+Binario CURL disponibile alla URL: http://curl.haxx.se/
 
 Per far funzionare correttamente il modulo bisogna impostare gli url di risposta positiva e negativa sul backend di Banca Sella.
 
@@ -12,7 +17,7 @@ Impostare questi url:
 
 URL per risposta positiva: http://www.dominio.it/modules/gestpay/validation.php
 URL per risposta negativa: http://www.dominio.it/modules/gestpay/validation.php
-Nella sezione campi e parametri bisogna abilitare a Parametro SI le voci:
+Nella sezione campi e parametri bisogna abilitare a "Parametro SI" le voci:
 Buyer Email
 Buyer Name
 Language
