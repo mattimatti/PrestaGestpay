@@ -19,8 +19,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
  * @author Andrea De Pirro <andrea.depirro@yameveo.com>, Enrico Aillaud <enrico.aillaud@yameveo.com>
- * @copyright Andrea De Pirro & Enrico Aillaud
- * @version 0.5.1
+ * @copyright Yameveo
+ * @version 0.6
  *
  */
 // @todo this class is getting too big. We must start to refactor
