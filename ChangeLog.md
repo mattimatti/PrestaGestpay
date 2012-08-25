@@ -1,6 +1,7 @@
 0.6.1
 * Fixed problems with Prestashop 1.4.9
 * Better handling of smarty templates
+* Display error when crypt function fails
 
 ---
 0.6

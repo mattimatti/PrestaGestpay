@@ -474,10 +474,10 @@ class gestpay extends PaymentModule
 
     $gestpay_crypt->Encrypt();
 
-    $error_description = $gestpay_crypt->GetErrorDescription();
-    // @todo manage error with an Exception
-    if ($error_description != "") {
-      echo "Encoding Error: " . $gestpay_crypt->GetErrorCode() . " " . $error_description . "<br />";
+    if ($gestpay_crypt->GetEncryptedString() == -1) {
+      echo "<p style='font-weight:bold;color:red'>{$this->l('Encoding Error')}: {$gestpay_crypt->GetErrorCode()}  {$gestpay_crypt->GetErrorDescription()}</p>";
+      echo "<p><a href='javascript:history.go(0)'>{$this->l('Try reloading the page')}</a></p>";
+      return false;
     } else {
       $a = $gestpay_crypt->GetShopLogin();
       $b = $gestpay_crypt->GetEncryptedString();
@@ -519,20 +519,22 @@ class gestpay extends PaymentModule
   {
     global $smarty, $cookie;
     $array_crypt = $this->Crypt($cart);
-    $amount = number_format($cart->getOrderTotal(true, 3), 2, '.', ''); // Ex. 1256.28
-    $smarty->assign(array(
-        'a' => $array_crypt['a'],
-        'b' => $array_crypt['b'],
-        'nbProducts' => $cart->nbProducts(),
-        'cust_currency' => $cookie->id_currency,
-        'currencies' => $this->getCurrency(),
-        'total' => $amount,
-        'gestpayURL' => $this->getGestPayUrl(),
-        'isoCode' => Language::getIsoById((int) ($cookie->id_lang)),
-        'this_path' => $this->_path
-    ));
+    if($array_crypt) {
+        $amount = number_format($cart->getOrderTotal(true, 3), 2, '.', ''); // Ex. 1256.28
+        $smarty->assign(array(
+            'a' => $array_crypt['a'],
+            'b' => $array_crypt['b'],
+            'nbProducts' => $cart->nbProducts(),
+            'cust_currency' => $cookie->id_currency,
+            'currencies' => $this->getCurrency(),
+            'total' => $amount,
+            'gestpayURL' => $this->getGestPayUrl(),
+            'isoCode' => Language::getIsoById((int) ($cookie->id_lang)),
+            'this_path' => $this->_path
+        ));
 
-    return $this->display(__FILE__, 'payment_execution.tpl');
+        return $this->display(__FILE__, 'payment_execution.tpl');
+    }
   }
 
   /**
