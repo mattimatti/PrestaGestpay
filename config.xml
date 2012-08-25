@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <module>
-	<name>gestpay</name>
-	<displayName><![CDATA[GestPay]]></displayName>
-	<version><![CDATA[0.6.1]]></version>
-	<description><![CDATA[Accept payments by GestPay]]></description>
-	<author><![CDATA[Yameveo]]></author>
-	<tab><![CDATA[payments_gateways]]></tab>
-	<confirmUninstall>Are you sure you want to delete your details?</confirmUninstall>
-	<is_configurable>1</is_configurable>
-	<need_instance>1</need_instance>
-	<limited_countries></limited_countries>
+    <name>gestpay</name>
+    <displayName><![CDATA[GestPay]]></displayName>
+    <version><![CDATA[0.6.2]]></version>
+    <description><![CDATA[Accept payments by GestPay]]></description>
+    <author><![CDATA[Yameveo]]></author>
+    <tab><![CDATA[payments_gateways]]></tab>
+    <confirmUninstall><![CDATA[Are you sure you want to delete your details?]]></confirmUninstall>
+    <is_configurable><![CDATA[1]]></is_configurable>
+    <need_instance><![CDATA[1]]></need_instance>
+    <limited_countries></limited_countries>
 </module>

@@ -1,3 +1,9 @@
+0.6.2
+* Removed useless images
+* Reorganized templates
+* Make use of db tables
+
+---
 0.6.1
 * Fixed problems with Prestashop 1.4.9
 * Better handling of smarty templates

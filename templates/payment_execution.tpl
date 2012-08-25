@@ -12,7 +12,7 @@
   <h3>{l s='GestPay payment' mod='gestpay'}</h3>
   <form action="{$gestpayURL}" method="post" id="gestpay_form">
     <p>
-      <img src="{$this_path}gestpay.gif" alt="{l s='gestpay' mod='gestpay'}" style="float:left; margin: 0px 10px 5px 0px;" />
+      <img src="{$this_path}/images/gestpay.gif" alt="{l s='gestpay' mod='gestpay'}" style="float:left; margin: 0px 10px 5px 0px;" />
       {l s='You have chosen to pay by GestPay.' mod='gestpay'}
       <br/><br />
       {l s='Here is a short summary of your order:' mod='gestpay'}

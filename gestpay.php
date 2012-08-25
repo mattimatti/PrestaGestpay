@@ -49,7 +49,7 @@ class gestpay extends PaymentModule
     $this->tab = 'payments_gateways';
     $this->currencies = true;
     $this->currencies_mode = 'checkbox';
-    $this->version = '0.6.1';
+    $this->version = '0.6.2';
     $this->author = 'Yameveo';
     $this->debug = false;
     $config = Configuration::getMultiple(
@@ -185,7 +185,6 @@ class gestpay extends PaymentModule
    */
   private function installModuleTab($tabClass, $tabName, $idTabParent)
   {
-    @copy(_PS_MODULE_DIR_ . $this->name . '/images/logo.png', _PS_IMG_DIR_ . 't/' . $tabClass . '.png');
     $tab = new Tab();
     $tab->name = $tabName;
     $tab->class_name = $tabClass;
@@ -207,7 +206,7 @@ class gestpay extends PaymentModule
   {
             
     if (!parent::uninstall()
-            OR !$this->uninstallModuleTab(TAB_CLASS)
+            OR !$this->uninstallModuleTab()
             OR !$this->uninstallDB()
             OR !Configuration::deleteByName('GESTPAY_LOGIN_USER')
             OR !Configuration::deleteByName('GESTPAY_PASSWORD')
@@ -231,13 +230,12 @@ class gestpay extends PaymentModule
    * @return boolean true if everything went fine
    *
    */
-  private function uninstallModuleTab($tabClass)
+  private function uninstallModuleTab()
   {
     $idTab = Tab::getIdFromClassName('AdminGestPay');
     if ($idTab != 0) {
       $tab = new Tab($idTab);
       $tab->delete();
-      @unlink(_PS_IMG_DIR_ . 't/' . $tabClass . '.png');
       return true;
     }
 
@@ -414,50 +412,20 @@ class gestpay extends PaymentModule
       $merchant_code = Configuration::get('GESTPAY_MERCHANT_CODE');
     }
 
-    // @todo use the currencies map DB table to map PrestaShop currencies with GestPay currencies
-    switch ($cookie->id_currency) {
-      case 1 :
-        $currency = "242"; // Euro
-        break;
-      case 2 :
-        $currency = "1"; // Dollars
-        break;
-      case 3 :
-        $currency = "2"; // Pounds
-        break;
-      default :
-        $currency = "242"; // Default currency is Euro
-        break;
-    }
-
+    $sqlCurrency = "SELECT id_gestpay FROM "._DB_PREFIX_."gestpay_currencies_map WHERE id_prestashop='" . $cookie->id_currency . "'";
+    $currency = Db::getInstance()->getValue($sqlCurrency);
+    
+    
     $amount = number_format($cart->getOrderTotal(true, 3), 2, '.', ''); // Es. 1256.28
     $transaction_id = $cart->id;
 
     $customer_firstname = ucfirst(strtolower($del_add_fields['firstname'])) . " " . ucfirst(strtolower($del_add_fields['lastname']));
     $customer_email = $customer->email;
 
-    // @todo use the laguages map DB table to map PrestaShop languages with GestPay languages
-    switch (Language::getIsoById(intval($cookie->id_lang))) {
-      case 'it' :
-        $language = "1"; // Italian
-        break;
-      case 'en' :
-        $language = "2"; // English
-        break;
-      case 'es' :
-        $language = "3"; // Spanish
-        break;
-      case 'fr' :
-        $language = "4"; // French
-        break;
-      case 'de' :
-        $language = "5"; // German
-        break;
-      default :
-        $language = "1"; // Default language is Italian
-        break;
-    }
-
+    $sqlLanguage = "SELECT id_gestpay FROM "._DB_PREFIX_."gestpay_languages_map WHERE code_prestashop='" . Language::getIsoById(intval($cookie->id_lang)) . "'";
+    $language = Db::getInstance()->getValue($sqlLanguage);
+    
+    // @todo allow users to set these parameters in backend
     //$mycustominfo= "[PARAMETRI PERSONALIZZATI]"; //Es. "BV_CODCLIENTE=12*P1*BV_SESSIONID=398"
 
     if (($account_type == 'ADVANCED') or ($account_type == 'PROFESSIONAL')) {
