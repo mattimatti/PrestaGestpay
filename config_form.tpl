@@ -14,7 +14,8 @@
         margin-bottom: 35px;
     }
 </style>
-{include file="../modules/gestpay/donation.tpl"}
+
+{include file="{$gestPayPath}/donation.tpl"}
 <br /><br />
 <p>{l s='Visit our website:' mod='GestPay'} <a href="http://www.yameveo.com" target="_blank" style="color:blue;font-weight:bold">http://www.yameveo.com</a></p>
 <p class="module_help">{l s='If the customer chooses this payment mode, the order will change its status once a positive confirmation is recieved from GestPay server' mod='GestPay'}</p>

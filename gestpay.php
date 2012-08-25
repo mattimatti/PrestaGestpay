@@ -20,12 +20,13 @@
  *
  * @author Andrea De Pirro <andrea.depirro@yameveo.com>, Enrico Aillaud <enrico.aillaud@yameveo.com>
  * @copyright Yameveo
- * @version 0.6
+ * @version 0.6.1
  *
  */
 // @todo this class is getting too big. We must start to refactor
 include_once(_PS_MODULE_DIR_ . "gestpay/lib/GestPayCrypt/GestPayCryptHS.php");
 define('TAB_CLASS', 'AdminGestPay');
+
 class gestpay extends PaymentModule
 {
   private $_html = '';
@@ -35,6 +36,8 @@ class gestpay extends PaymentModule
   public $address;
   public $tabClass;
   public $debug;
+  public static $modulePath;
+
   /**
    * Constructor for the class GestPay
    *
@@ -46,7 +49,7 @@ class gestpay extends PaymentModule
     $this->tab = 'payments_gateways';
     $this->currencies = true;
     $this->currencies_mode = 'checkbox';
-    $this->version = '0.6';
+    $this->version = '0.6.1';
     $this->author = 'Yameveo';
     $this->debug = false;
     $config = Configuration::getMultiple(
@@ -77,7 +80,9 @@ class gestpay extends PaymentModule
       $this->account_type = $config['GESTPAY_ACCOUNT_TYPE'];
     if (isset($config['GESTPAY_CURL_PATH']))
       $this->curl_path = $config['GESTPAY_CURL_PATH'];
-
+    
+    self::initModuleAccess();
+    
     parent::__construct(); /* The parent construct is required for translations */
 
     $this->page = basename(__FILE__, '.php');
@@ -87,7 +92,12 @@ class gestpay extends PaymentModule
     if (!isset($this->merchant_code) && !isset($this->login_user) && !isset($this->password))
       $this->warning = $this->l('Account must be configured in order to use this module correctly');
   }
-
+  
+  public static function initModuleAccess()
+  {
+    gestpay::$modulePath = _PS_MODULE_DIR_. 'gestpay/';
+  }
+  
   /**
    * Function to install the module
    *
@@ -359,7 +369,8 @@ class gestpay extends PaymentModule
         'merchantCodeTest' => htmlentities(Tools::getValue('merchant_code_test', $this->merchant_code_test), ENT_COMPAT, 'UTF-8'),
         'testMode' => Configuration::get('GESTPAY_TESTMODE'),
         'accountType' => $this->account_type,
-        'extensionCurl' => extension_loaded("curl")
+        'extensionCurl' => extension_loaded("curl"),
+        'gestPayPath' => gestpay::$modulePath
     ));
     $this->_html .= $this->display(__FILE__, 'config_form.tpl');
     return $this->_html;

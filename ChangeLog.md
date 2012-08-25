@@ -1,3 +1,8 @@
+0.6.1
+* Fixed problems with Prestashop 1.4.9
+* Better handling of smarty templates
+
+---
 0.6
 * Rewritten validation.php to be compliant with Prestashop 1.4 (and with analytics modules)
 * Minor fixes and cleanups
@@ -71,4 +76,4 @@
 
 ----
 0.1
-First release
+* First release

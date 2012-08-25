@@ -78,7 +78,9 @@
       $smarty->assign(array(
           'src' => $src,
           'srcTest' => $srcTest,
+          'gestPayPath' => _PS_MODULE_DIR_.'/gestpay',
+          'gestPayUrl' => _PS_BASE_URL_.'/modules/gestpay'
       ));
-      $smarty->display('../modules/gestpay/tab.tpl');
+      $smarty->display(_PS_MODULE_DIR_.'/gestpay/tab.tpl');
     }
   }
