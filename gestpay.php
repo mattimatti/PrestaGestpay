@@ -370,9 +370,9 @@ class gestpay extends PaymentModule
         'testMode' => Configuration::get('GESTPAY_TESTMODE'),
         'accountType' => $this->account_type,
         'extensionCurl' => extension_loaded("curl"),
-        'gestPayPath' => gestpay::$modulePath
+        'gestPayPath' => gestpay::$modulePath."/templates"
     ));
-    $this->_html .= $this->display(__FILE__, 'config_form.tpl');
+    $this->_html .= $this->display(__FILE__, 'templates/config_form.tpl');
     return $this->_html;
   }
 
@@ -533,7 +533,7 @@ class gestpay extends PaymentModule
             'this_path' => $this->_path
         ));
 
-        return $this->display(__FILE__, 'payment_execution.tpl');
+        return $this->display(__FILE__, 'templates/payment_execution.tpl');
     }
   }
 
@@ -556,7 +556,7 @@ class gestpay extends PaymentModule
         __PS_BASE_URI__ . 'modules/' . $this->name . '/'
     ));
 
-    return $this->display(__FILE__, 'payment.tpl');
+    return $this->display(__FILE__, 'templates/payment.tpl');
   }
 
   /**
