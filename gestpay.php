@@ -361,7 +361,7 @@ class gestpay extends PaymentModule
         'formAction' => $_SERVER['REQUEST_URI'],
         'loginUser' => htmlentities(Tools::getValue('login_user', $this->login_user), ENT_COMPAT, 'UTF-8'),
         'password' => htmlentities(Tools::getValue('password', $this->password), ENT_COMPAT, 'UTF-8'),
-        'merchantCode' => htmlentities(Tools::getValue('merchant_code', $this->merchant_code_test), ENT_COMPAT, 'UTF-8'),
+        'merchantCode' => htmlentities(Tools::getValue('merchant_code', $this->merchant_code), ENT_COMPAT, 'UTF-8'),
         'loginUserTest' => htmlentities(Tools::getValue('login_user_test', $this->login_user_test), ENT_COMPAT, 'UTF-8'),
         'passwordTest' => htmlentities(Tools::getValue('password_test', $this->password_test), ENT_COMPAT, 'UTF-8'),
         'merchantCodeTest' => htmlentities(Tools::getValue('merchant_code_test', $this->merchant_code_test), ENT_COMPAT, 'UTF-8'),
