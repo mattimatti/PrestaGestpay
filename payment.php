@@ -22,6 +22,10 @@
   * @copyright Yameveo
   *
   */
+    
+  /**
+    * @deprecated 1.5.0 This file is deprecated, use moduleFrontController instead
+    */
 
   /* SSL Management */
   $useSSL = false;
