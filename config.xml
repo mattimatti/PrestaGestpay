@@ -2,7 +2,7 @@
 <module>
     <name>gestpay</name>
     <displayName><![CDATA[GestPay]]></displayName>
-    <version><![CDATA[0.6.2]]></version>
+    <version><![CDATA[0.6.3]]></version>
     <description><![CDATA[Accept payments by GestPay]]></description>
     <author><![CDATA[Yameveo]]></author>
     <tab><![CDATA[payments_gateways]]></tab>

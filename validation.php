@@ -50,13 +50,12 @@ $error_description = trim($gestpay_decrypt->GetErrorDescription());
 //    $alert_description = trim($gestpay_decrypt->GetAlertDescription());
 //    $custom_info = trim($gestpay_decrypt->GetCustomInfo());
 
-$cart = new Cart((int)$shop_transaction_id);
-$customer = new Customer((int)$cart->id_customer);
-if($transaction_result == 'OK') {
+$cart = new Cart((int) $shop_transaction_id);
+$customer = new Customer((int) $cart->id_customer);
+if ($transaction_result == 'OK') {
     $gestpay->validateOrder($shop_transaction_id, Configuration::get('PS_OS_PAYMENT'), $amount, 'GestPay', NULL, NULL, NULL, false, $customer->secure_key);
-}
-else {
-    
+} else {
+
     // @todo use translation function
     $error_message = "Error " . $error_code . "  " . $error_description;
     $gestpay->validateOrder($shop_transaction_id, Configuration::get('PS_OS_ERROR'), $amount, 'GestPay', $error_message, NULL, NULL, false, $customer->secure_key);
@@ -76,4 +75,4 @@ $url = 'index.php?controller=order-confirmation&';
 if (_PS_VERSION_ < '1.5')
     $url = 'order-confirmation.php?';
 
-Tools::redirect($url . 'id_module=' . (int)$gestpay->id . '&id_cart=' . $shop_transaction_id . '&key=' . $customer->secure_key . '&id_order=' . $gestpay->currentOrder);
+Tools::redirect($url . 'id_module=' . (int) $gestpay->id . '&id_cart=' . $shop_transaction_id . '&key=' . $customer->secure_key . '&id_order=' . $gestpay->currentOrder);

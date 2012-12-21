@@ -61,11 +61,12 @@ class GestPayCrypt
   public $country;
   public $vbvrisp;
   public $vbv;
-  
+
   public $debug;
   public $curlPath;
-  
-  public function __construct($debug = false, $curlPath = "/usr/bin/curl") {
+
+  public function __construct($debug = false, $curlPath = "/usr/bin/curl")
+  {
     $this->ShopLogin = "";
     $this->Currency = "";
     $this->Amount = "";
@@ -99,7 +100,7 @@ class GestPayCrypt
     $this->country = "";
     $this->vbvrisp = "";
     $this->vbv = "";
-    
+
     $this->debug = $debug;
     $this->curlPath = $curlPath;
   }

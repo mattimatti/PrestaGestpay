@@ -1,5 +1,6 @@
 0.6.3
 * Added logo for payment config page
+* Applied PSR-1 PSR-2 PHP standards
 
 ---
 0.6.2
