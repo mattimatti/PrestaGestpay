@@ -1,7 +1,12 @@
+0.6.3
+* Added logo for payment config page
+
+---
 0.6.2
 * Removed useless images
 * Reorganized templates
 * Make use of db tables
+* Minor compatibility fixes for Prestashop 1.5
 * Fix for configuration
 
 ---
