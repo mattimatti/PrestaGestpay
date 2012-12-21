@@ -2,6 +2,7 @@
 * Removed useless images
 * Reorganized templates
 * Make use of db tables
+* Fix for configuration
 
 ---
 0.6.1
