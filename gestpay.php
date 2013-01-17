@@ -404,7 +404,7 @@ class gestpay extends PaymentModule
                 $account_type = 'BASIC';
                 break;
         }
-        $gestpay_crypt = new GestPayCryptHS($this->debug, Configuration::get('GESTPAY_CURL_PATH'));
+        $gestpay_crypt = new GestPayCrypt($this->debug, Configuration::get('GESTPAY_CURL_PATH'));
         $customer = new Customer(intval($cart->id_customer));
         $del_add = new Address(intval($cart->id_address_delivery));
         $del_add_fields = $del_add->getFields();
@@ -468,7 +468,7 @@ class gestpay extends PaymentModule
      */
     public function deCrypt($a, $b)
     {
-        $gestpay_decrypt = new GestPayCryptHS($this->debug, Configuration::get('GESTPAY_CURL_PATH'));
+        $gestpay_decrypt = new GestPayCrypt($this->debug, Configuration::get('GESTPAY_CURL_PATH'));
         $gestpay_decrypt->SetShopLogin($a);
         $gestpay_decrypt->SetEncryptedString($b);
         $gestpay_decrypt->SetDomainName($this->getGestPayDomainName());
