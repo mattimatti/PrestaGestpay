@@ -1,6 +1,7 @@
 0.6.3
 * Added logo for payment config page
 * Applied PSR-1 PSR-2 PHP standards
+* Going back to GestPayCrypt until some bugs are solved
 
 ---
 0.6.2
