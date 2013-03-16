@@ -26,7 +26,7 @@
 include(dirname(__FILE__) . '/../../config/config.inc.php');
 include(dirname(__FILE__). '/../../init.php');
 
-include(dirname(__FILE__) . '/gestpay.php');
+require_once(dirname(__FILE__) . '/gestpay.php');
 global $cookie;
 
 if (!$cookie->isLogged())
