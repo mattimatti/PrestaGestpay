@@ -30,4 +30,5 @@ Attenzione: la cartella del plugin deve chiamarsi gestpay per non causare errori
 Non dimenticate di abilitare l'IP del vostro server nel backend di GestPay! Configurazione->Ambiente->Indirizzi IP
 
 Se volete effettuare una donazione: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=52LYR2A3VTS5S  
+BitCoin: 1ANhpPFEAZj7xehN4Mke4nyyVrKkfzvNw9
 Qui trovate il Changelog del modulo https://github.com/akira28/PrestaGestpay/wiki/Changelog
