@@ -31,7 +31,7 @@
   $useSSL = false;
   include(dirname(__FILE__).'/../../config/config.inc.php');
   include(dirname(__FILE__).'/../../header.php');
-  include(dirname(__FILE__).'/gestpay.php');
+  require_once(dirname(__FILE__).'/gestpay.php');
 
   if (!$cookie->isLogged(true))
       Tools::redirect('authentication.php?back=order.php');
