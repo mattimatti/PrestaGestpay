@@ -16,6 +16,8 @@ URL per risposta positiva:
 http://www.dominio.it/modules/gestpay/validation.php  
 URL per risposta negativa: 
 http://www.dominio.it/modules/gestpay/validation.php
+URL Server to Server: 
+http://www.dominio.it/modules/gestpay/validation.php
 
 Nella sezione campi e parametri bisogna abilitare a "Parametro SI" le voci:
 * Buyer Email
