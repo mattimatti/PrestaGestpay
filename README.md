@@ -15,7 +15,7 @@ Impostare questi url:
 URL per risposta positiva: 
 http://www.dominio.it/modules/gestpay/validation.php  
 URL per risposta negativa: 
-http://www.dominio.it/modules/gestpay/validation.php
+http://www.dominio.it/modules/gestpay/validation.php 
 URL Server to Server: 
 http://www.dominio.it/modules/gestpay/validation.php
 
